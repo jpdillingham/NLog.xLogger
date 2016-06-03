@@ -1,7 +1,7 @@
 # xLogger
 An extension of NLog.Logger that provides additional functionality for tracing the entry and exit, arbitrary checkpoints, exceptions and stack traces within methods.
 
-*xLogger depends on [NLog](https://www.nuget.org/packages/NLog/), [Json.NET](https://www.nuget.org/packages/Newtonsoft.Json) and my own [BigFont Class](https://github.com/jpdillingham/BigFont).*
+xLogger depends on [NLog](https://www.nuget.org/packages/NLog/), [Json.NET](https://www.nuget.org/packages/Newtonsoft.Json) and my own [BigFont Class](https://github.com/jpdillingham/BigFont).
 
 # Features
 ## EnterMethod()
