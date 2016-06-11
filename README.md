@@ -171,6 +171,9 @@ public static void ExceptionExample()
 ### Output
 
 ```
+[x]: ┌─────────── ─ ───────────────────────── ─────────────────────────────────────────────────────────────────── ─────── ─    ─     ─ 
+[x]: │ ──► Entering method: Void ExceptionExample() (Program.cs:line 63) 
+[x]: └──────────────────── ───────────────────────────────  ─  ─          ─ ─ ─    ─   ─ 
 [x]: ┌──┐┌─────────── ─ ───────────────────────── ─────────────────────────────────────────────────────────────────── ─────── ─    ─     ─ 
 [x]: │██││ ╳ Exception 'IndexOutOfRangeException' caught in method: Void ExceptionExample() (Program.cs:line 73): 
 [x]: │██││   └┄┈ "Index was outside the bounds of the array." 
