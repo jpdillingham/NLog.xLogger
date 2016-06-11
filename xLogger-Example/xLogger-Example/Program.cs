@@ -15,6 +15,7 @@ namespace xLogger_Example
             ExitMethodPersistentExample(1, 2);
             CheckpointExample(1);
             ExceptionExample();
+            StackTraceExample();
             OtherExamples();  
         }
 
@@ -63,7 +64,9 @@ namespace xLogger_Example
 
             try
             {
-                throw new Exception("Example exception");
+                // intentionally raise an exception
+                var arr = new string[5];
+                Console.WriteLine(arr[5]);
             }
             catch (Exception ex)
             {
@@ -73,6 +76,11 @@ namespace xLogger_Example
             {
                 logger.ExitMethod();
             }
+        }
+
+        public static void StackTraceExample()
+        {
+            logger.StackTrace(logger.Info);
         }
 
         public static void OtherExamples()
