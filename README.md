@@ -153,7 +153,9 @@ public static void ExceptionExample()
 
     try
     {
-        throw new Exception("Example exception");
+        // intentionally raise an exception
+        var arr = new string[5];
+        Console.WriteLine(arr[5]);
     }
     catch (Exception ex)
     {
@@ -169,32 +171,54 @@ public static void ExceptionExample()
 ### Output
 
 ```
-[x]: ┌─────────── ─ ───────────────────────── ─────────────────────────────────────────────────────────────────── ─────── ─    ─     ─ 
-[x]: │ ──► Entering method: Void ExceptionExample() (Program.cs:line 61) 
-[x]: └──────────────────── ───────────────────────────────  ─  ─          ─ ─ ─    ─   ─ 
 [x]: ┌──┐┌─────────── ─ ───────────────────────── ─────────────────────────────────────────────────────────────────── ─────── ─    ─     ─ 
-[x]: │██││ ╳ Exception 'Exception' caught in method: Void ExceptionExample() (Program.cs:line 69) 
+[x]: │██││ ╳ Exception 'IndexOutOfRangeException' caught in method: Void ExceptionExample() (Program.cs:line 73): 
+[x]: │██││   └┄┈ "Index was outside the bounds of the array." 
 [x]: │██│├──────────────────────── ─       ──  ─ 
-[x]: │██││   └┄┈ Void Main(String[] args) 
-[x]: │██││      └┄┈ Void ExceptionExample() 
+[x]: │██││   └┄► Void Main(String[] args) 
+[x]: │██││      └┄► Void ExceptionExample() 
 [x]: │██│├──────────────────────── ─       ──  ─ 
 [x]: │██││   ├┄┈ ex: { 
-[x]: │██││   ├┄┈ ex:   "ClassName": "System.Exception", 
-[x]: │██││   ├┄┈ ex:   "Message": "Example exception", 
+[x]: │██││   ├┄┈ ex:   "ClassName": "System.IndexOutOfRangeException", 
+[x]: │██││   ├┄┈ ex:   "Message": "Index was outside the bounds of the array.", 
 [x]: │██││   ├┄┈ ex:   "Data": null, 
 [x]: │██││   ├┄┈ ex:   "InnerException": null, 
 [x]: │██││   ├┄┈ ex:   "HelpURL": null, 
-[x]: │██││   ├┄┈ ex:   "StackTraceString": "   at xLogger_Example.Program.ExceptionExample() in C:\\Users\\JP.WHATNET\\OneDrive\\Projects\\xLogger-Example\\xLogger-Example\\Program.cs:line 65", 
+[x]: │██││   ├┄┈ ex:   "StackTraceString": " 
+[x]: │██││   ├┄┈ ex:       at xLogger_Example.Program.ExceptionExample() in C:\Users\JP.WHATNET\OneDrive\Projects\xLogger\xLogger\xLogger-Example\xLogger-Example\Program.cs:line 69 
+[x]: │██││   ├┄┈ ex:   " 
 [x]: │██││   ├┄┈ ex:   "RemoteStackTraceString": null, 
 [x]: │██││   ├┄┈ ex:   "RemoteStackIndex": 0, 
 [x]: │██││   ├┄┈ ex:   "ExceptionMethod": "8\nExceptionExample\nxLogger-Example, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\nxLogger_Example.Program\nVoid ExceptionExample()", 
-[x]: │██││   ├┄┈ ex:   "HResult": -2146233088, 
+[x]: │██││   ├┄┈ ex:   "HResult": -2146233080, 
 [x]: │██││   ├┄┈ ex:   "Source": "xLogger-Example", 
 [x]: │██││   ├┄┈ ex:   "WatsonBuckets": null 
 [x]: │██││   └┄┈ ex: } 
 [x]: └──┘└──────────────────── ───────────────────────────────  ─  ─          ─ ─ ─    ─   ─ 
 [x]: ┌─────────── ─ ───────────────────────── ─────────────────────────────────────────────────────────────────── ─────── ─    ─     ─ 
 [x]: │ ◄── Exiting method: Void ExceptionExample() (Program.cs:line 73) 
+[x]: └──────────────────── ───────────────────────────────  ─  ─          ─ ─ ─    ─   ─ 
+```
+
+## Stack Trace
+The ```StackTrace``` method logs the current call stack at the point of invocation.
+
+### Example
+
+```c#
+public static void StackTraceExample()
+{
+    logger.StackTrace(logger.Info);
+}
+```
+
+### Output
+
+```
+[x]: ┌─────────── ─ ───────────────────────── ─────────────────────────────────────────────────────────────────── ─────── ─    ─     ─ 
+[x]: │ @ Stack Trace from method: Void StackTraceExample() (Program.cs:line 83) 
+[x]: │   └┄► Void Main(String[] args) 
+[x]: │      └┄► Void StackTraceExample() 
 [x]: └──────────────────── ───────────────────────────────  ─  ─          ─ ─ ─    ─   ─ 
 ```
 
