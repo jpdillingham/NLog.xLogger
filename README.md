@@ -142,29 +142,30 @@ public static int CheckpointExample(int one)
 
 ## Exception()
 
-The ```Exception()``` method logs exception details.  The method differs from the others in that it can log to levels other than Trace.  The first parameter is of type ```Action<string>``` which corresponds to the type of the logging methods within NLog.  Other parameters are the ```Exception``` that was caught and, as always, the optional ```Guid``` created if the method was entered with the persistence option.
+The ```Exception()``` method logs exception details.  The method differs from the others in that it can log to levels other than Trace.  The first parameter is of type ```LogLevel``` which is an enumeration of the logging levels within NLog.  
+Other parameters are the ```Exception``` that was caught and, as always, the optional ```Guid``` created if the method was entered with the persistence option.
 
 ### Example
 
 ```c#
 public static void ExceptionExample()
 {
-    logger.EnterMethod();
+	logger.EnterMethod();
 
-    try
-    {
-        // intentionally raise an exception
-        var arr = new string[5];
-        Console.WriteLine(arr[5]);
-    }
-    catch (Exception ex)
-    {
-        logger.Exception(logger.Error, ex);
-    }
-    finally
-    {
-        logger.ExitMethod();
-    }
+	try
+	{
+		// intentionally raise an exception
+		var arr = new string[5];
+		Console.WriteLine(arr[5]);
+	}
+	catch (Exception ex)
+	{
+		logger.Exception(LogLevel.Error, ex);
+	}
+	finally
+	{
+		logger.ExitMethod();
+	}
 }
 ```
 
@@ -211,7 +212,7 @@ The ```StackTrace``` method logs the current call stack at the point of invocati
 ```c#
 public static void StackTraceExample()
 {
-    logger.StackTrace(logger.Info);
+    logger.StackTrace(LogLevel.Info);
 }
 ```
 
@@ -227,24 +228,24 @@ public static void StackTraceExample()
 
 ## Additional Methods
 
-* ```Multiline(action, string|string[])```: Logs the provided string or string array in multiple lines, split around the array elements or newline characters.
-* ```MultilineWrapped(action, string|string[])```: Same as above, but wrapped in the stylized lines seen in the examples above.
-* ```Separator(action)```: Logs a horizontal line
-* ```Heading(action, string)```: Logs the provided string in large letters (provided by BigFont), followed by a separator.
-* ```SubHeading(action, string)```: Logs the provided string in medium letters.
-* ```SubSubHeading(action, string)```: Logs the provided string in smaller letters.
+* ```Multiline(LogLevel, string|string[])```: Logs the provided string or string array in multiple lines, split around the array elements or newline characters.
+* ```MultilineWrapped(LogLevel, string|string[])```: Same as above, but wrapped in the stylized lines seen in the examples above.
+* ```Separator(LogLevel)```: Logs a horizontal line
+* ```Heading(LogLevel, string)```: Logs the provided string in large letters (provided by BigFont), followed by a separator.
+* ```SubHeading(LogLevel, string)```: Logs the provided string in medium letters.
+* ```SubSubHeading(LogLevel, string)```: Logs the provided string in smaller letters.
 
 ### Example
 
 ```c#
 public static void OtherExamples()
 {
-    logger.Multiline(logger.Trace, "hello \n world!");
-    logger.MultilineWrapped(logger.Trace, new string[] { "hello", "again", "world!!" });
-    logger.Separator(logger.Trace);
-    logger.Heading(logger.Trace, "Hello world!");
-    logger.SubHeading(logger.Trace, "Hello world!");
-    logger.SubSubHeading(logger.Trace, "Hello world!");
+    logger.Multiline(LogLevel.Trace, "hello \n world!");
+    logger.MultilineWrapped(LogLevel.Trace, new string[] { "hello", "again", "world!!" });
+    logger.Separator(LogLevel.Trace);
+    logger.Heading(LogLevel.Trace, "Hello world!");
+    logger.SubHeading(LogLevel.Trace, "Hello world!");
+    logger.SubSubHeading(LogLevel.Trace, "Hello world!");
 }
 ```
 
