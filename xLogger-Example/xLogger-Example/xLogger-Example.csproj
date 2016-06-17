@@ -52,8 +52,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BigFont.cs" />
+    <Compile Include="MinimalLogExample.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VerboseLogExample.cs" />
     <Compile Include="xLogger.cs" />
   </ItemGroup>
   <ItemGroup>

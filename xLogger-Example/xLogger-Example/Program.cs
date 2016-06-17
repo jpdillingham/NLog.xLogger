@@ -16,7 +16,13 @@ namespace xLogger_Example
             CheckpointExample(1);
             ExceptionExample();
             StackTraceExample();
-            OtherExamples();  
+            OtherExamples();
+
+            logger.SubSubHeading(LogLevel.Info, "Minimal Log Example:");
+            MinimalLogExample.Process(100, 15);
+
+            logger.SubSubHeading(LogLevel.Info, "Verbose Log Example:");
+            VerboseLogExample.Process(100, 15);
         }
 
         public static void EnterMethodExample(int one, int two, ExampleObject three)
@@ -70,7 +76,7 @@ namespace xLogger_Example
             }
             catch (Exception ex)
             {
-                logger.Exception(logger.Error, ex);
+                logger.Exception(LogLevel.Error, ex);
             }
             finally
             {
@@ -80,17 +86,17 @@ namespace xLogger_Example
 
         public static void StackTraceExample()
         {
-            logger.StackTrace(logger.Info);
+            logger.StackTrace(LogLevel.Info);
         }
 
         public static void OtherExamples()
         {
-            logger.Multiline(logger.Trace, "hello \n world!");
-            logger.MultilineWrapped(logger.Trace, new string[] { "hello", "again", "world!!" });
-            logger.Separator(logger.Trace);
-            logger.Heading(logger.Trace, "Hello world!");
-            logger.SubHeading(logger.Trace, "Hello world!");
-            logger.SubSubHeading(logger.Trace, "Hello world!");
+            logger.Multiline(LogLevel.Trace, "hello \n world!");
+            logger.MultilineWrapped(LogLevel.Trace, new string[] { "hello", "again", "world!!" });
+            logger.Separator(LogLevel.Trace);
+            logger.Heading(LogLevel.Trace, "Hello world!");
+            logger.SubHeading(LogLevel.Trace, "Hello world!");
+            logger.SubSubHeading(LogLevel.Trace, "Hello world!");
         }
     }
 
