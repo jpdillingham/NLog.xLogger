@@ -81,7 +81,7 @@ namespace xLogger
     /// private xLogger logger = (xLogger)LogManager.GetLogger("generic logger name", typeof(xLogger));
     /// </code>
     /// </example>
-    class xLogger : Logger
+    public class xLogger : Logger
     {
         #region Variables
 
@@ -519,7 +519,7 @@ namespace xLogger
             if (!IsEnabled(level)) return;
 
             // get the BigFont for the message
-            string[] heading = BigFont.Generate(message, BigFont.FontSize.Large);
+            string[] heading = BigFont.BigFont.Generate(message, BigFont.BigFont.FontSize.Large);
 
             // convert the array to a list so we can easily append a line
             List<string> styledHeading = new List<string>(heading);
@@ -548,7 +548,7 @@ namespace xLogger
         /// </example>
         public void SubHeading(LogLevel level, string message)
         {
-            MultilineWrapped(level, BigFont.Generate(message, BigFont.FontSize.Medium));
+            MultilineWrapped(level, BigFont.BigFont.Generate(message, BigFont.BigFont.FontSize.Medium));
         }
 
         /// <summary>
@@ -568,7 +568,7 @@ namespace xLogger
         /// </example>
         public void SubSubHeading(LogLevel level, string message)
         {
-            MultilineWrapped(level, BigFont.Generate(message, BigFont.FontSize.Small));
+            MultilineWrapped(level, BigFont.BigFont.Generate(message, BigFont.BigFont.FontSize.Small));
         }
 
         #region EnterMethod
