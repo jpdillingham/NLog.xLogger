@@ -1,10 +1,32 @@
 # xLogger
 An extension of NLog.Logger that provides additional functionality for tracing the entry and exit, arbitrary checkpoints, exceptions and stack traces within methods.
 
-xLogger depends on [NLog](https://www.nuget.org/packages/NLog/), [Json.NET](https://www.nuget.org/packages/Newtonsoft.Json) and my own [BigFont Class](https://github.com/jpdillingham/BigFont).
+This library depends on [NLog](https://www.nuget.org/packages/NLog/), [Json.NET](https://www.nuget.org/packages/Newtonsoft.Json) and my own [BigFont Class](https://github.com/jpdillingham/BigFont).
 
-# Features
-## EnterMethod()
+## xLogger.xLogger
+
+The ```xLogger``` class is the only type within the namespace.  This type extends ```NLog.Logger```.
+
+### Instantiating
+
+xLogger instances are instantiated using the ```LogManager.GetLogger()``` and ```LogManager.GetCurrentClassLogger()``` factory methods provided by NLog.  
+
+The ```GetCurrentClassLogger()``` method returns an instance of xLogger named using the current class name.
+
+```c#
+private xLogger logger = (xLogger)LogManager.GetCurrentClassLogger(typeof(xLogger));
+```
+
+Note that ```typeof(xLogger)``` must be passed to the factory method so that the correct type can be instantiated.  The result of the method must also be cast to xLogger.
+
+The ```GetLogger()``` method returns a named instance of xLogger using the supplied name.
+
+```c#
+private xLogger logger =(xLogger)LogManager.GetLogger("generic logger name", typeof(xLogger));
+```
+
+### Methods
+#### EnterMethod()
 
 The ```EnterMethod()``` method is used to log the entry point of a method.  The method accepts an object array containing the method parameters and boolean used to determine whether to persist the timestamp of entry.  Returns a ```Guid``` if persistence is used, ```default(Guid)``` otherwise.
 
@@ -12,7 +34,7 @@ The static method ```xLogger.Params()``` is included to assist with the building
 
 Note that the class ExampleObject has been created to demonstrate the serialization functionality and will continue to be used for the remainder of the examples.
 
-### Example
+##### Example
 
 ```c#
 public static void EnterMethodExample(int one, int two, ExampleObject three)
@@ -24,7 +46,7 @@ public static void EnterMethodExample(int one, int two, ExampleObject three)
 }
 ```
 
-### Output
+##### Output
 
 ```
 [x]: ┌─────────── ─ ───────────────────────── ─────────────────────────────────────────────────────────────────── ─────── ─    ─     ─ 
@@ -44,11 +66,11 @@ public static void EnterMethodExample(int one, int two, ExampleObject three)
 [x]: Standard log message 
 ```
 
-## ExitMethod()
+#### ExitMethod()
 
 The ```ExitMethod()``` method logs the exit point of a method.  The method accepts an object representing the method return value and an optional ```Guid```, used if the corresponding ```EnterMethod()``` was called with the persistence option.
 
-### Example
+##### Example
 
 ```c#
 public static ExampleObject ExitMethodPersistentExample(int one, int two)
@@ -65,7 +87,7 @@ public static ExampleObject ExitMethodPersistentExample(int one, int two)
 }
 ```
 
-### Output
+##### Output
 
 ```
 [x]: ┌─────────── ─ ───────────────────────── ─────────────────────────────────────────────────────────────────── ─────── ─    ─     ─ 
@@ -89,11 +111,11 @@ public static ExampleObject ExitMethodPersistentExample(int one, int two)
 
 ```
 
-## Checkpoint()
+#### Checkpoint()
 
 The ```Checkpoint()``` method logs an arbitrary checkpoint anywhere within the method body.  The method accepts a string representing the name of the checkpoint, an object array containing an arbitrary list of variables, a string array containing the names of the variables contained in the object list, and an optional ```Guid```, used if the corresponding ```EnterMethod()``` call used the persistence option.
 
-### Example
+##### Example
 
 ```c#
 public static int CheckpointExample(int one)
@@ -115,7 +137,7 @@ public static int CheckpointExample(int one)
 }
 ```
 
-### Output
+##### Output
 
 ```
 [x]: ┌─────────── ─ ───────────────────────── ─────────────────────────────────────────────────────────────────── ─────── ─    ─     ─ 
@@ -140,12 +162,12 @@ public static int CheckpointExample(int one)
 [x]: └──────────────────── ───────────────────────────────  ─  ─          ─ ─ ─    ─   ─ 
 ```
 
-## Exception()
+#### Exception()
 
 The ```Exception()``` method logs exception details.  The method differs from the others in that it can log to levels other than Trace.  The first parameter is of type ```LogLevel``` which is an enumeration of the logging levels within NLog.  
 Other parameters are the ```Exception``` that was caught and, as always, the optional ```Guid``` created if the method was entered with the persistence option.
 
-### Example
+##### Example
 
 ```c#
 public static void ExceptionExample()
@@ -169,7 +191,7 @@ public static void ExceptionExample()
 }
 ```
 
-### Output
+##### Output
 
 ```
 [x]: ┌─────────── ─ ───────────────────────── ─────────────────────────────────────────────────────────────────── ─────── ─    ─     ─ 
@@ -204,10 +226,10 @@ public static void ExceptionExample()
 [x]: └──────────────────── ───────────────────────────────  ─  ─          ─ ─ ─    ─   ─ 
 ```
 
-## Stack Trace
+#### Stack Trace
 The ```StackTrace``` method logs the current call stack at the point of invocation.
 
-### Example
+##### Example
 
 ```c#
 public static void StackTraceExample()
@@ -216,7 +238,7 @@ public static void StackTraceExample()
 }
 ```
 
-### Output
+##### Output
 
 ```
 [x]: ┌─────────── ─ ───────────────────────── ─────────────────────────────────────────────────────────────────── ─────── ─    ─     ─ 
@@ -226,7 +248,7 @@ public static void StackTraceExample()
 [x]: └──────────────────── ───────────────────────────────  ─  ─          ─ ─ ─    ─   ─ 
 ```
 
-## Additional Methods
+#### Additional Methods
 
 * ```Multiline(LogLevel, string|string[])```: Logs the provided string or string array in multiple lines, split around the array elements or newline characters.
 * ```MultilineWrapped(LogLevel, string|string[])```: Same as above, but wrapped in the stylized lines seen in the examples above.
@@ -235,7 +257,7 @@ public static void StackTraceExample()
 * ```SubHeading(LogLevel, string)```: Logs the provided string in medium letters.
 * ```SubSubHeading(LogLevel, string)```: Logs the provided string in smaller letters.
 
-### Example
+##### Example
 
 ```c#
 public static void OtherExamples()
@@ -249,7 +271,7 @@ public static void OtherExamples()
 }
 ```
 
-### Output
+##### Output
 
 ```
 [x]: hello  
