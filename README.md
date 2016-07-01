@@ -1,7 +1,29 @@
 # xLogger
 An extension of NLog.Logger that provides additional functionality for tracing the entry and exit, arbitrary checkpoints, exceptions and stack traces within methods.
 
-xLogger depends on [NLog](https://www.nuget.org/packages/NLog/), [Json.NET](https://www.nuget.org/packages/Newtonsoft.Json) and my own [BigFont Class](https://github.com/jpdillingham/BigFont).
+This library depends on [NLog](https://www.nuget.org/packages/NLog/), [Json.NET](https://www.nuget.org/packages/Newtonsoft.Json) and my own [BigFont Class](https://github.com/jpdillingham/BigFont).
+
+## xLogger.xLogger
+
+The ```xLogger``` class is the only type within the namespace.  This type extends ```NLog.Logger```.
+
+### Instantiating
+
+xLogger instances are instantiated using the ```LogManager.GetLogger()``` and ```LogManager.GetCurrentClassLogger()``` factory methods provided by NLog.  
+
+The ```GetCurrentClassLogger()``` method returns an instance of xLogger named using the current class name.
+
+```c#
+private xLogger logger = (xLogger)LogManager.GetCurrentClassLogger(typeof(xLogger));
+```
+
+Note that ```typeof(xLogger)``` must be passed to the factory method so that the correct type can be instantiated.  The result of the method must also be cast to xLogger.
+
+The ```GetLogger()``` method returns a named instance of xLogger using the supplied name.
+
+```c#
+private xLogger logger =(xLogger)LogManager.GetLogger("generic logger name", typeof(xLogger));
+```
 
 ### Methods
 #### EnterMethod()
