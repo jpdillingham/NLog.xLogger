@@ -1962,8 +1962,22 @@ namespace xLogger
             if (!methodBase.IsConstructor)
                 returnType = ((MethodInfo)methodBase).ReturnType;
 
+            string typeParameters = "";
+
+            // check to see if this is a generic method
+            if (methodBase.IsGenericMethod)
+            {
+                // it is.  start building the string.
+                typeParameters = "<";
+
+                foreach (Type t in methodBase.GetGenericArguments())
+                    typeParameters += (typeParameters.Length > 1 ? ", " : "") + GetColloquialTypeName(t);
+
+                typeParameters += ">";
+            }
+
             // build a signature string to display by iterating over the method parameters and retrieving names and types
-            string methodSignature = GetColloquialTypeName(returnType) + " " + (methodBase.IsConstructor ? methodBase.ReflectedType.Name : methodBase.Name) + "(";
+            string methodSignature = GetColloquialTypeName(returnType) + " " + (methodBase.IsConstructor ? methodBase.ReflectedType.Name : methodBase.Name) + typeParameters + "(";
             List<string> parameters = new List<string>();
 
             foreach (ParameterInfo pi in methodBase.GetParameters())
