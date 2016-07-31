@@ -1124,7 +1124,7 @@ namespace xLogger
             // from a method invocation that didn't supply anything for returnValue
             if (returnValue == null)
             {
-                Log(level, LinePrefix + "return: null");
+                Log(level, FinalLinePrefix + "return: null");
             }
             else if (returnValue.GetType() != typeof(UnspecifiedReturnValue))
             {
