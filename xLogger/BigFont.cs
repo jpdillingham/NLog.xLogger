@@ -9,12 +9,12 @@
       █     ███    ██▄ ██  ▀▀██ ███▄    ███        ██    ██ ██   ██     ██    
       █     ███    ███ ██    ██    ██   ███        ██    ██ ██   ██     ██    
       █   ▄█████████▀  █     ██████▀    ███         ██████   █   █     ▄██▀   
-      █   
- ▄ ▄▄ █ ▄▄▄▄▄▄▄▄▄  ▄▄▄▄ ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄ ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄ ▄▄  ▄▄ ▄▄   ▄▄▄▄ ▄▄     ▄▄     ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄ ▄ ▄ 
- █ ██ █ █████████  ████ ██████████████████████████████████████ ███████████████ ██  ██ ██   ████ ██     ██     ████████████████ █ █ 
-      █ 
-      █  Transforms strings into large, stylized characters.
-      █ 
+      █
+ ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄ ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄ ▄▄  ▄▄ ▄▄   ▄▄▄▄ ▄▄     ▄▄     ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄ ▄ ▄ 
+ █████████████████████████████████████████████████████████████ ███████████████ ██  ██ ██   ████ ██     ██     ████████████████ █ █ 
+      ▄  
+      █  BigFont transforms strings into large, stylized characters.
+      █  
       █▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ ▀▀▀▀▀▀▀▀▀▀▀ ▀ ▀▀▀     ▀▀               ▀   
       █  The MIT License (MIT)
       █  
@@ -45,87 +45,45 @@
                                                                                                    ▀▀                               */
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
-namespace xLogger.BigFont
+namespace BigFont
 {
     /// <summary>
     /// BigFont transforms strings into large, stylized characters.
     /// </summary>
     public static class BigFont
     {
-        #region Enumerations
-
-        /// <summary>
-        /// Font size enumeration; the integer value indicates the height in lines
-        /// </summary>
-        public enum FontSize
-        {
-            Default,
-            Large = 8,
-            Medium = 6,
-            Small = 4
-        }
-
-        /// <summary>
-        /// Font type enumeration
-        /// </summary>
-        public enum Font
-        {
-            Default,
-            Block,
-            Graffiti
-        }
-
-        #endregion
-
-        #region Variables
+        #region Fields
 
         /// <summary>
         /// The default font used to initialize the DefaultFont property.
         /// </summary>
-        private const Font defaultFont = Font.Block;
+        private const Font DefaultFont = Font.Block;
 
         /// <summary>
         /// The default font size used to initialize the DefaultFontSize property.
         /// </summary>
-        private const FontSize defaultFontSize = FontSize.Large;
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// The default font.
-        /// </summary>
-        public static Font DefaultFont { get; set; }
-
-        /// <summary>
-        /// The default font size.
-        /// </summary>
-        public static FontSize DefaultFontSize { get; set; }
-
-        /// <summary>
-        /// The alphabet.
-        /// </summary>
-        public static Dictionary<Tuple<char, Font, FontSize>, string[]> Alphabet { get; private set; }
+        private const FontSize DefaultFontSize = FontSize.Large;
 
         #endregion
 
         #region Constructors
 
         /// <summary>
-        /// The default constructor.  Initializes the alphabet.
+        /// Initializes static members of the <see cref="BigFont"/> class.
         /// </summary>
+        [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1116:SplitParametersMustStartOnLineAfterDeclaration", Justification = "Reviewed.")]
+        [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1118:ParameterMustNotSpanMultipleLines", Justification = "Reviewed.")]
+        [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1115:ParameterMustFollowComma", Justification = "Reviewed.")]
         static BigFont()
         {
             // initialize the default properties
-            DefaultFont = defaultFont;
-            DefaultFontSize = defaultFontSize;
+            CurrentFont = DefaultFont;
+            CurrentFontSize = DefaultFontSize;
 
             // create the "Alphabet"
             Alphabet = new Dictionary<Tuple<char, Font, FontSize>, string[]>();
-
-            #region Block
 
             /*
             █▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ ▀▀▀▀▀▀▀▀▀▀▀▀▀▀ ▀▀▀  ▀  ▀      ▀▀ 
@@ -1637,7 +1595,7 @@ namespace xLogger.BigFont
                 "▄█████▄ ",
                 "██ ▄ ██ ",
                 "██ ▀ ██ ",
-                "▀█████▀ " 
+                "▀█████▀ "
             });
 
             Alphabet.Add(new Tuple<char, Font, FontSize>(' ', Font.Block, FontSize.Small), new string[]
@@ -1792,10 +1750,6 @@ namespace xLogger.BigFont
                 "  ▄▄   "
             });
 
-            #endregion
-
-            #region Graffiti
-
             /*
             █▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ ▀▀▀▀▀▀▀▀▀▀▀▀▀▀ ▀▀▀  ▀  ▀      ▀▀ 
             █  
@@ -1894,7 +1848,7 @@ namespace xLogger.BigFont
                 "  ████████▀  "
             });
 
-            Alphabet.Add(new Tuple<char, Font, FontSize>('H', Font.Graffiti, FontSize.Large), new string[] 
+            Alphabet.Add(new Tuple<char, Font, FontSize>('H', Font.Graffiti, FontSize.Large), new string[]
             {
                 "   ▄█    █▄    ",
                 "  ███    ███   ",
@@ -1906,7 +1860,7 @@ namespace xLogger.BigFont
                 "  ███    █▀    "
             });
 
-            Alphabet.Add(new Tuple<char, Font, FontSize>('I', Font.Graffiti, FontSize.Large), new string[] 
+            Alphabet.Add(new Tuple<char, Font, FontSize>('I', Font.Graffiti, FontSize.Large), new string[]
             {
                 " ▄█  ",
                 "███  ",
@@ -1966,7 +1920,6 @@ namespace xLogger.BigFont
                 " ███   ███   ███ ",
                 " ███   ███   ███ ",
                 "  ▀█   ███   █▀  "
-
             });
 
             Alphabet.Add(new Tuple<char, Font, FontSize>('N', Font.Graffiti, FontSize.Large), new string[]
@@ -2068,11 +2021,11 @@ namespace xLogger.BigFont
             Alphabet.Add(new Tuple<char, Font, FontSize>('V', Font.Graffiti, FontSize.Large), new string[]
             {
                 " ▄█    █▄  ",
-                "███    ███ ",     
-                "███    ███ ",    
-                "███    ███ ",   
-                "███    ███ ",  
-                "███    ███ ", 
+                "███    ███ ",
+                "███    ███ ",
+                "███    ███ ",
+                "███    ███ ",
+                "███    ███ ",
                 " ██▄  ▄██  ",
                 "  ▀████▀   "
             });
@@ -3462,11 +3415,81 @@ namespace xLogger.BigFont
                 "  ██▀  ",
                 "  ▄▄   "
             });
-
-            #endregion
         }
 
         #endregion
+
+        #region Enumerations
+
+        /// <summary>
+        /// Font type enumeration
+        /// </summary>
+        public enum Font
+        {
+            /// <summary>
+            /// Default font; DefaultFont property will be substituted when used.
+            /// </summary>
+            Default,
+
+            /// <summary>
+            /// Block font.
+            /// </summary>
+            Block,
+
+            /// <summary>
+            /// Graffiti font.
+            /// </summary>
+            Graffiti
+        }
+
+        /// <summary>
+        /// Font size enumeration; the integer value indicates the height in lines
+        /// </summary>
+        public enum FontSize
+        {
+            /// <summary>
+            /// Default size; DefaultFontSize property will be substituted when used.
+            /// </summary>
+            Default,
+
+            /// <summary>
+            /// Large font size (8 lines).
+            /// </summary>
+            Large = 8,
+
+            /// <summary>
+            /// Medium font size (6 lines).
+            /// </summary>
+            Medium = 6,
+
+            /// <summary>
+            /// Small font size (4 lines).
+            /// </summary>
+            Small = 4
+        }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets the current font.
+        /// </summary>
+        public static Font CurrentFont { get; set; }
+
+        /// <summary>
+        /// Gets or sets the current font size.
+        /// </summary>
+        public static FontSize CurrentFontSize { get; set; }
+
+        /// <summary>
+        /// Gets the alphabet.
+        /// </summary>
+        public static Dictionary<Tuple<char, Font, FontSize>, string[]> Alphabet { get; private set; }
+
+        #endregion
+
+        #region Methods
 
         #region Static Methods
 
@@ -3482,7 +3505,7 @@ namespace xLogger.BigFont
         /// <seealso cref="Generate(string, Font, FontSize)"/>
         public static string[] Generate(string phrase, FontSize size = FontSize.Default)
         {
-            return Generate(phrase, DefaultFont, (size == FontSize.Default ? DefaultFontSize : size));
+            return Generate(phrase, DefaultFont, size == FontSize.Default ? DefaultFontSize : size);
         }
 
         /// <summary>
@@ -3498,19 +3521,25 @@ namespace xLogger.BigFont
         public static string[] Generate(string phrase, Font font = Font.Default, FontSize size = FontSize.Default)
         {
             // substitute default font and size values with the configured default values
-            font = (font == Font.Default ? DefaultFont : font);
-            size = (size == FontSize.Default ? DefaultFontSize : size);
+            font = font == Font.Default ? DefaultFont : font;
+            size = size == FontSize.Default ? DefaultFontSize : size;
 
             // create the result array of the proper size
             string[] r = new string[(int)size];
 
             // populate the result array
             foreach (char c in phrase.ToUpper())
+            {
                 for (int i = 0; i < (int)size; i++)
-                    r[i] += Alphabet[new Tuple<char, Font, FontSize>((Alphabet.ContainsKey(new Tuple<char, Font, FontSize>(c, font, size)) ? c : '?'), font, size)][i];
+                {
+                    r[i] += Alphabet[new Tuple<char, Font, FontSize>(Alphabet.ContainsKey(new Tuple<char, Font, FontSize>(c, font, size)) ? c : '?', font, size)][i];
+                }
+            }
 
             return r;
         }
+
+        #endregion
 
         #endregion
     }

@@ -1,17 +1,32 @@
-﻿using NLog;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
+using NLog;
 
 namespace xLogger.Examples
 {
-    class Program
+    /// <summary>
+    /// Examples for the xLogger class.
+    /// </summary>
+    public class Program
     {
+        #region Fields
+
+        /// <summary>
+        /// The logger for the class.
+        /// </summary>
         private static xLogger logger = (xLogger)LogManager.GetLogger("x", typeof(xLogger));
 
-        static void Main(string[] args)
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// The entry point for the application.
+        /// </summary>
+        /// <param name="args">The command line arguments.</param>
+        public static void Main(string[] args)
         {
-            EnterMethodExample(1, 2, new ExampleObject(3, "three", new double[] { 1.1, 2.2, 3.3 }.ToList()));
+            EnterMethodExample<string, bool>(1, 2, new ExampleObject(3, "three", new double[] { 1.1, 2.2, 3.3 }.ToList()));
             ExitMethodPersistentExample(1, 2);
             CheckpointExample(1);
             ExceptionExample();
@@ -19,29 +34,44 @@ namespace xLogger.Examples
             OtherExamples();
 
             logger.SubSubHeading(LogLevel.Info, "Minimal Log Example:");
-            MinimalLogExample.Process(100, 15);
+            MinimalLogExample.Process(10, 10);
 
             logger.SubSubHeading(LogLevel.Info, "Verbose Log Example:");
-            VerboseLogExample.Process(100, 15);
+            VerboseLogExample.Process(10, 10);
 
             Console.WriteLine("Press any key to exit...");
             Console.ReadKey();
         }
 
-        public static void EnterMethodExample(int one, int two, ExampleObject three)
+        /// <summary>
+        /// Example of <see cref="xLogger.EnterMethod(Type[], object[], bool, string, string, int)"/> usage.
+        /// </summary>
+        /// <typeparam name="T1">The first Type parameter.</typeparam>
+        /// <typeparam name="T2">The second Type parameter.</typeparam>
+        /// <param name="one">A number.</param>
+        /// <param name="two">Another number.</param>
+        /// <param name="three">An instance of ExampleObject.</param>
+        public static void EnterMethodExample<T1, T2>(int one, int two, ExampleObject three)
         {
-            logger.EnterMethod(xLogger.Params(one, two, three));
+            logger.EnterMethod(xLogger.TypeParams(typeof(T1), typeof(T2)), xLogger.Params(one, two, three));
 
-            // method body
+            //// method body
+
             logger.Trace("Standard log message");
         }
 
+        /// <summary>
+        /// Example of <see cref="xLogger.ExitMethod(object, Guid, string, string, int)"/> usage.
+        /// </summary>
+        /// <param name="one">A number.</param>
+        /// <param name="two">Another number.</param>
+        /// <returns>An ExampleObject instance.</returns>
         public static ExampleObject ExitMethodPersistentExample(int one, int two)
         {
             Guid persistedGuid = logger.EnterMethod(xLogger.Params(one, two), true);
 
-            // method body
-
+            //// method body
+ 
             logger.Trace("Standard log message");
             ExampleObject returnValue = new ExampleObject(1, "return", new double[] { 5.5 }.ToList());
 
@@ -49,6 +79,11 @@ namespace xLogger.Examples
             return returnValue;
         }
 
+        /// <summary>
+        /// Example of <see cref="xLogger.Checkpoint(object[], string[], Guid, string, string, int)"/> usage.
+        /// </summary>
+        /// <param name="one">A number.</param>
+        /// <returns>Another number.</returns>
         public static int CheckpointExample(int one)
         {
             Guid persistedGuid = logger.EnterMethod(xLogger.Params(one), true);
@@ -67,6 +102,9 @@ namespace xLogger.Examples
             return returnValue;
         }
 
+        /// <summary>
+        /// Example of <see cref="xLogger.Exception(NLog.LogLevel, Exception, object[], string[], Guid, string, string, int)"/> usage.
+        /// </summary>
         public static void ExceptionExample()
         {
             logger.EnterMethod();
@@ -87,11 +125,17 @@ namespace xLogger.Examples
             }
         }
 
+        /// <summary>
+        /// Example of <see cref="xLogger.StackTrace(NLog.LogLevel, string, string, int)"/> usage.
+        /// </summary>
         public static void StackTraceExample()
         {
             logger.StackTrace(LogLevel.Info);
         }
 
+        /// <summary>
+        /// Other examples.
+        /// </summary>
         public static void OtherExamples()
         {
             logger.Multiline(LogLevel.Trace, "hello \n world!");
@@ -101,19 +145,7 @@ namespace xLogger.Examples
             logger.SubHeading(LogLevel.Trace, "Hello world!");
             logger.SubSubHeading(LogLevel.Trace, "Hello world!");
         }
-    }
 
-    class ExampleObject
-    {
-        public int num { get; set; }
-        public string str { get; set; }
-        public List<double> list { get; set; }
-
-        public ExampleObject(int num, string str, List<double> list)
-        {
-            this.num = num;
-            this.str = str;
-            this.list = list;
-        }
+        #endregion
     }
 }
