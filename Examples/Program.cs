@@ -51,9 +51,9 @@ namespace xLogger.Examples
         /// <param name="one">A number.</param>
         /// <param name="two">Another number.</param>
         /// <param name="three">An instance of ExampleObject.</param>
-        public static void EnterMethodExample<T1, T2>(int one, int two, ExampleObject three)
+        public static void EnterMethodExample<Tone, Ttwo>(int one, int two, ExampleObject three)
         {
-            logger.EnterMethod(xLogger.TypeParams(typeof(T1), typeof(T2)), xLogger.Params(one, two, three));
+            logger.EnterMethod(xLogger.TypeParams(typeof(Tone), typeof(Ttwo)), xLogger.Params(one, two, three));
 
             //// method body
 
