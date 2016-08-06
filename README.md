@@ -326,7 +326,7 @@ Performance is severely impacted with the Trace logging level enabled.  To allev
 
 ## Customization
 
-The formatting of the output can be customized by creating the following variables within the NLog configuration.
+The formatting of the output can be customized by creating and modifying the following variables within the NLog configuration.
 
 ```xml
   <variable name="xLogger.Prefix" value="│ "/>
