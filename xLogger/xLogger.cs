@@ -62,9 +62,8 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using NLog;
 
-namespace xLogger
+namespace NLog.xLogger
 {
     /// <summary>
     /// <para>
@@ -91,111 +90,10 @@ namespace xLogger
     {
         #region Fields
 
-        /// <summary>
-        /// Generic prefix to append to the beginning of the other prefixes
-        /// </summary>
-        private static readonly string Prefix = "│ ";
-
-        /// <summary>
-        /// String to log prior to any text block.  If no header is desired, specify a blank string.
-        /// </summary>
-        private static readonly string Header = "┌─────────── ─ ───────────────────────── ─────────────────────────────────────────────────────────────────── ─────── ─    ─     ─";
-
-        /// <summary>
-        /// String to append to the beginning of the method entry message.
-        /// </summary>
-        private static readonly string EnterPrefix = Prefix + "──► ";
-
-        /// <summary>
-        /// String to append to the beginning of the method exit message.
-        /// </summary>
-        private static readonly string ExitPrefix = Prefix + "◄── ";
-
-        /// <summary>
-        /// String to append to the beginning of checkpoint messages.
-        /// </summary>
-        private static readonly string CheckpointPrefix = Prefix + "√ ";
-
-        /// <summary>
-        /// String to append to the beginning of exception messages.
-        /// </summary>
-        private static readonly string ExceptionPrefix = Prefix + "╳ ";
-
-        /// <summary>
-        /// String to append to the beginning of stack trace messages.
-        /// </summary>
-        private static readonly string StackTracePrefix = Prefix + "@ ";
-
-        /// <summary>
-        /// String to append to the beginning of execution duration messages.
-        /// </summary>
-        private static readonly string ExecutionDurationPrefix = Prefix + "◊ ";
-
-        /// <summary>
-        /// String to append to the beginning of each line within a message.
-        /// </summary>
-        private static readonly string LinePrefix = Prefix + "  ├┄┈ ";
-
-        /// <summary>
-        /// String to append to the beginning of the final line within a message.
-        /// </summary>
-        private static readonly string FinalLinePrefix = Prefix + "  └┄┈ ";
-
-        /// <summary>
-        /// String to append to the beginning of each line requiring variable indentation.  The dollar sign '$' will be substituted for 
-        /// a string of spaces of the appropriate length.
-        /// </summary>
-        private static readonly string LinePrefixVariable = Prefix + "  $└┄► ";
-
-        /// <summary>
-        /// String to log following any text block.  If no footer is desired, specify a blank string.
-        /// </summary>
-        private static readonly string Footer = "└──────────────────── ───────────────────────────────  ─  ─          ─ ─ ─    ─   ─";
-
-        /// <summary>
-        /// String to log when LogSeparator() is invoked.
-        /// </summary>
-        private static readonly string InnerSeparator = "├──────────────────────── ─       ──  ─";
-
-        /// <summary>
-        /// String to log when the Separator() method is invoked.
-        /// </summary>
-        private static readonly string OuterSeparator = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ ■ ■■■■■■■■■■■■■■■ ■■  ■■ ■■   ■■■■ ■■     ■■     ■ ■";
-
-        /// <summary>
-        /// String to append to exception headers.
-        /// </summary>
-        private static readonly string ExceptionHeaderPrefix = "┌──┐";
-
-        /// <summary>
-        /// String to append to exception lines.
-        /// </summary>
-        private static readonly string ExceptionLinePrefix = "│██│";
-
-        /// <summary>
-        /// String to append to exception footers.
-        /// </summary>
-        private static readonly string ExceptionFooterPrefix = "└──┘";
-
-        /// <summary>
-        /// Number of spaces to indent lines where indentation is applied.
-        /// </summary>
-        private static readonly int Indent = 3;
-
-        /// <summary>
-        /// Determines whether persisted methods are automatically pruned after the interval defined by AutoPruneAge.
-        /// </summary>
-        private static readonly bool AutoPruneEnabled = true;
-
-        /// <summary>
-        /// Interval after which persisted methods are automatically pruned from the PersistedMethods list, if AutoPruneEnabled is true.
-        /// </summary>
-        private static readonly int AutoPruneAge = 300;
-
         #region Locks
 
         /// <summary>
-        /// Lock to use to ensure thread safety with respect to the PersistedMethods list.
+        ///     Lock to use to ensure thread safety with respect to the PersistedMethods list.
         /// </summary>
         private object persistedMethodListLock = new object();
 
@@ -206,7 +104,7 @@ namespace xLogger
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="xLogger"/> class.
+        ///     Initializes a new instance of the <see cref="xLogger"/> class.
         /// </summary>
         public xLogger()
         {
@@ -218,9 +116,254 @@ namespace xLogger
         #region Properties
 
         /// <summary>
-        /// Gets a list of Tuples containing a Guid and DateTime corresponding to methods logged with the persistence option.
+        ///     Gets a list of Tuples containing a Guid and DateTime corresponding to methods logged with the persistence option.
         /// </summary>
         public List<Tuple<Guid, DateTime>> PersistedMethods { get; private set; }
+
+        /// <summary>
+        ///     Gets the generic prefix to be used to prefix other elements.
+        /// </summary>
+        public string Prefix
+        {
+            get
+            { 
+                return GetConfigurationVariableOr("xLogger.Prefix", "│ ");
+            }
+        }
+
+        /// <summary>
+        ///     Gets the header string to log prior to any text block.  If no header is desired, specify a blank string.
+        /// </summary>
+        public string Header
+        {
+            get
+            {
+                return GetConfigurationVariableOr("xLogger.Header", "┌────────────────────────────────────────────────────────────────────────────────────────────────────┄┈ ");
+            }
+        }
+
+        /// <summary>
+        ///     Gets the string to prepend to method entry messages.
+        /// </summary>
+        public string EnterPrefix
+        {
+            get
+            {
+                return GetConfigurationVariableOr("xLogger.EnterPrefix", Prefix + "──► ");
+            }
+        }
+
+        /// <summary>
+        ///     Gets the string to prepend to method exit messages.
+        /// </summary>
+        public string ExitPrefix
+        {
+            get
+            {
+                return GetConfigurationVariableOr("xLogger.ExitPrefix", Prefix + "◄── ");
+            }
+        }
+
+        /// <summary>
+        ///     Gets the string to prepend to checkpoint messages.
+        /// </summary>
+        public string CheckpointPrefix
+        {
+            get
+            {
+                return GetConfigurationVariableOr("xLogger.CheckpointPrefix", Prefix + "√ ");
+            }
+        }
+
+        /// <summary>
+        ///     Gets the string to prepend to exception messages.
+        /// </summary>
+        public string ExceptionPrefix
+        {
+            get
+            {
+                return GetConfigurationVariableOr("xLogger.ExceptionPrefix", Prefix + "╳ ");
+            }
+        }
+            
+        /// <summary>
+        ///     Gets the string to prepend to stack trace messages.
+        /// </summary>
+        public string StackTracePrefix
+        {
+            get
+            {
+                return GetConfigurationVariableOr("xLogger.StackTracePrefix", Prefix + "@ ");
+            }
+        }
+
+        /// <summary>
+        ///     Gets the string to prepend to execution duration messages.
+        /// </summary>
+        public string ExecutionDurationPrefix
+        {
+            get
+            {
+                return GetConfigurationVariableOr("xLogger.ExecutionDurationPrefix", Prefix + "◊ ");
+            }
+        }
+
+        /// <summary>
+        ///     Gets the string to prepend to each line within a multiline message.
+        /// </summary>
+        public string LinePrefix
+        {
+            get
+            {
+                return GetConfigurationVariableOr("xLogger.LinePrefix", Prefix + "  ├┄┈ ");
+            }
+        }
+
+        /// <summary>
+        ///     Gets the string to prepend to the final line within a multiline message.
+        /// </summary>
+        public string FinalLinePrefix
+        {
+            get
+            {
+                return GetConfigurationVariableOr("xLogger.FinalLinePrefix", Prefix + "  └┄┈ ");
+            }
+        }
+
+        /// <summary>
+        ///     Gets the string to prepend to the beginning of each line within a multiline message requiring variable indentation.
+        ///     The dollar sign '$' will be substituted for a string of spaces of the appropriate length.
+        /// </summary>
+        public string LinePrefixVariable
+        {
+            get
+            {
+                return GetConfigurationVariableOr("xLogger.LinePrefixVariable", Prefix + "  $└┄► ");
+            }
+        }
+
+        /// <summary>
+        ///     Gets the string to log following any text block.  If no footer is desired, specify a blank string.
+        /// </summary>
+        public string Footer
+        {
+            get
+            {
+                return GetConfigurationVariableOr("xLogger.Footer", "└──────────────────────────────────────────────────────────────────────────────────────────┄┈ ");
+            }
+        }
+
+        /// <summary>
+        ///     Gets the string to log when LogSeparator() is invoked.
+        /// </summary>
+        public string InnerSeparator
+        {
+            get
+            {
+                return GetConfigurationVariableOr("xLogger.InnerSeparator", "├────────────────────────────────────┄┈ ");
+            }
+        }
+
+        /// <summary>
+        ///     Gets the string to log when the Separator() method is invoked.
+        /// </summary>
+        public string OuterSeparator
+        {
+            get
+            {
+                return GetConfigurationVariableOr("xLogger.OuterSeparator", "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■");
+            }
+        }
+
+        /// <summary>
+        ///     Gets the string to prepend to exception headers.
+        /// </summary>
+        public string ExceptionHeaderPrefix
+        {
+            get
+            {
+                return GetConfigurationVariableOr("xLogger.ExceptionHeaderPrefix", "┌──┐");
+            }
+        }
+
+        /// <summary>
+        ///     Gets the string to prepend to exception lines.
+        /// </summary>
+        public string ExceptionLinePrefix
+        {
+            get
+            {
+                return GetConfigurationVariableOr("xLogger.ExceptionLinePrefix", "│██│");
+            }
+        }
+
+        /// <summary>
+        ///     Gets the string to prepend to exception footers.
+        /// </summary>
+        public string ExceptionFooterPrefix
+        {
+            get
+            {
+                return GetConfigurationVariableOr("xLogger.ExceptionFooterPrefix", "└──┘");
+            }
+        }
+
+        /// <summary>
+        ///     Gets the number of spaces to indent lines where indentation is applied.
+        /// </summary>
+        public int Indent
+        {
+            get
+            {
+                string value = GetConfigurationVariableOr("xLogger.Indent", "3");
+                int indent;
+
+                if (!int.TryParse(value, out indent))
+                {
+                    throw new FormatException("The configured value for xLogger.Indent ('" + value + "') is invalid.  The value must be an integer.");
+                }
+
+                return indent;
+            }
+        }
+
+        /// <summary>
+        ///     Gets a value indicating whether persisted methods are automatically pruned after the interval defined by AutoPruneAge.
+        /// </summary>
+        public bool AutoPruneEnabled
+        {
+            get
+            {
+                string value = GetConfigurationVariableOr("xLogger.AutoPruneEnabled", "true");
+                bool autoPruneEnabled;
+
+                if (!bool.TryParse(value, out autoPruneEnabled))
+                {
+                    throw new FormatException("The configured value for xLogger.AutoPruneEnabled ('" + value + "') is invalid.  The value must be a boolean.");
+                }
+
+                return autoPruneEnabled;
+            }
+        }
+
+        /// <summary>
+        ///     Gets the interval after which persisted methods are automatically pruned from the PersistedMethods list, if the AutoPruneEnabled property is equal to true.
+        /// </summary>
+        public int AutoPruneAge
+        {
+            get
+            {
+                string value = GetConfigurationVariableOr("xLogger.AutoPruneAge", "300");
+                int autoPruneAge;
+
+                if (!int.TryParse(value, out autoPruneAge))
+                {
+                    throw new FormatException("The configured value for xLogger.AutoPruneAge ('" + value + "') is invalid.  The value must be an integer.");
+                }
+
+                return autoPruneAge;
+            }
+        }
 
         #endregion
 
@@ -354,12 +497,33 @@ namespace xLogger
             return (string[])Params(names);
         }
 
+        /// <summary>
+        ///     Returns a new instance of the <see cref="ExcludedParam"/> class.
+        /// </summary>
+        /// <returns>A new instance of the <see cref="ExcludedParam"/> class.</returns>
+        /// <seealso cref="EnterMethod(Type[], object[], bool, string, string, int)"/> 
+        /// <example>
+        /// <code>
+        /// <![CDATA[
+        /// // exclude the second parameter of a logged method entry
+        /// public void MyMethod(int one, int two, int three)
+        /// {
+        ///     logger.EnterMethod(xLogger.Params(one, xLogger.Exclude(), two);
+        /// }
+        /// ]]>
+        /// </code>
+        /// </example>
+        public static ExcludedParam Exclude()
+        {
+            return new ExcludedParam();
+        }
+
         #endregion
 
         #region Public Instance Methods
 
         /// <summary>
-        /// Prunes the PersistedMethods list of any tuples older than the specified age in seconds.
+        ///     Prunes the PersistedMethods list of any tuples older than the specified age in seconds.
         /// </summary>
         /// <remarks>
         ///     Should be called on a regular interval (minutes or perhaps hours) to keep things tidy.
@@ -367,6 +531,7 @@ namespace xLogger
         /// </remarks>
         /// <param name="age">The age in seconds after which persisted methods will be pruned.</param>
         /// <returns>The number of records pruned.</returns>
+        /// <threadsafety instance="true"/>
         /// <example>
         /// <code>
         /// <![CDATA[
@@ -418,7 +583,7 @@ namespace xLogger
         }
 
         /// <summary>
-        /// Logs each element of the supplied string array as a new log message to the logging level specified in level.
+        ///     Logs each element of the supplied string array as a new log message to the logging level specified in level.
         /// </summary>
         /// <param name="level">The logging level to which to log the message.</param>
         /// <param name="message">The message to log.</param>
@@ -448,7 +613,7 @@ namespace xLogger
         }
 
         /// <summary>
-        /// Appends the line prefix to each line of the supplied message and wraps the text in the header and footer.
+        ///     Appends the line prefix to each line of the supplied message and wraps the text in the header and footer.
         /// </summary>
         /// <param name="level">The logging level to which to log the message.</param>
         /// <param name="message">The message to wrap and log.</param>
@@ -469,7 +634,7 @@ namespace xLogger
         }
 
         /// <summary>
-        /// Appends the line prefix to each line of the supplied message and wraps the text in the header and footer.
+        ///     Appends the line prefix to each line of the supplied message and wraps the text in the header and footer.
         /// </summary>
         /// <param name="level">The logging level to which to log the message.</param>
         /// <param name="message">The message to wrap and log.</param>
@@ -511,7 +676,7 @@ namespace xLogger
         }
 
         /// <summary>
-        /// Logs a separator with the logging function specified in action.
+        ///     Logs a separator with the logging function specified in action.
         /// </summary>
         /// <param name="level">The logging level to which to log the message.</param>
         /// <example>
@@ -534,7 +699,7 @@ namespace xLogger
         }
 
         /// <summary>
-        /// Logs the supplied message converted to large sized text using <see cref="BigFont"/> and with the logging function specified in action.
+        ///     Logs the supplied message converted to large sized text using <see cref="BigFont"/> and with the logging function specified in action.
         /// </summary>
         /// <remarks>
         ///     Dependent upon the <see cref="BigFont"/> class (BigFont.cs)
@@ -572,7 +737,7 @@ namespace xLogger
         }
 
         /// <summary>
-        /// Logs the supplied message converted to medium sized text using <see cref="BigFont"/> and with the logging function specified in action.
+        ///     Logs the supplied message converted to medium sized text using <see cref="BigFont"/> and with the logging function specified in action.
         /// </summary>
         /// <remarks>
         ///     Dependent upon the <see cref="BigFont"/> class (BigFont.cs)
@@ -594,7 +759,7 @@ namespace xLogger
         }
 
         /// <summary>
-        /// Logs the supplied message converted to small text using <see cref="BigFont"/> and with the logging function specified in action.
+        ///     Logs the supplied message converted to small text using <see cref="BigFont"/> and with the logging function specified in action.
         /// </summary>
         /// <remarks>
         ///     Dependent upon the <see cref="BigFont"/> class (BigFont.cs)
@@ -618,7 +783,7 @@ namespace xLogger
         #region EnterMethod
 
         /// <summary>
-        /// Logs a message indicating the entrance of execution flow into a method.
+        ///     Logs a message indicating the entrance of execution flow into a method.
         /// </summary>
         /// <param name="caller">An implicit parameter which evaluates to the name of the method that called this method.</param>
         /// <param name="filePath">An implicit parameter which evaluates to the filename from which the calling method was executed.</param>
@@ -997,7 +1162,7 @@ namespace xLogger
         #region ExitMethod
 
         /// <summary>
-        /// Logs a message indicating the exit of execution flow from a method.
+        ///     Logs a message indicating the exit of execution flow from a method.
         /// </summary>
         /// <param name="caller">An implicit parameter which evaluates to the name of the method that called this method.</param>
         /// <param name="filePath">An implicit parameter which evaluates to the filename from which the calling method was executed.</param>
@@ -1166,7 +1331,7 @@ namespace xLogger
         #region Checkpoint
 
         /// <summary>
-        /// Logs a message indicating that the execution flow of a method has reached an arbitrary checkpoint defined at design-time.
+        ///     Logs a message indicating that the execution flow of a method has reached an arbitrary checkpoint defined at design-time.
         /// </summary>
         /// <param name="caller">An implicit parameter which evaluates to the name of the method that called this method.</param>
         /// <param name="filePath">An implicit parameter which evaluates to the filename from which the calling method was executed.</param>
@@ -1186,7 +1351,7 @@ namespace xLogger
         }
 
         /// <summary>
-        /// Logs a named message indicating that the execution flow of a method has reached an arbitrary checkpoint defined at design-time.
+        ///     Logs a named message indicating that the execution flow of a method has reached an arbitrary checkpoint defined at design-time.
         /// </summary>
         /// <remarks>
         ///     This overload is provided as a workaround to disambiguate <see cref="Checkpoint(string, string, int)"/> 
@@ -1209,7 +1374,7 @@ namespace xLogger
         }
 
         /// <summary>
-        /// Logs a named message indicating that the execution flow of a method has reached an arbitrary checkpoint defined at design-time.
+        ///     Logs a named message indicating that the execution flow of a method has reached an arbitrary checkpoint defined at design-time.
         /// </summary>
         /// <param name="name">The checkpoint name.</param>
         /// <param name="caller">An implicit parameter which evaluates to the name of the method that called this method.</param>
@@ -1282,7 +1447,7 @@ namespace xLogger
 
         /// <summary>
         ///     Logs a message indicating that the execution flow of a method has reached an arbitrary checkpoint defined at design-time, and logs
-        ///     the specified list of varibles.
+        ///     the specified list of variables.
         /// </summary>
         /// <param name="variables">A list of variables to be logged.</param>
         /// <param name="caller">An implicit parameter which evaluates to the name of the method that called this method.</param>
@@ -1309,7 +1474,7 @@ namespace xLogger
 
         /// <summary>
         ///     Logs a named message indicating that the execution flow of a method has reached an arbitrary checkpoint defined at design-time, and logs
-        ///     the specified list of varibles.
+        ///     the specified list of variables.
         /// </summary>
         /// <param name="name">The checkpoint name.</param>
         /// <param name="variables">A list of variables to be logged.</param>
@@ -1337,7 +1502,7 @@ namespace xLogger
 
         /// <summary>
         ///     Logs a message indicating that the execution flow of a method has reached an arbitrary checkpoint defined at design-time, and logs
-        ///     the specified list of varibles and the current execution time since the corresponding <see cref="EnterMethod(bool, string, string, int)"/> method was called.
+        ///     the specified list of variables and the current execution time since the corresponding <see cref="EnterMethod(bool, string, string, int)"/> method was called.
         /// </summary>
         /// <param name="variables">A list of variables to be logged.</param>
         /// <param name="guid">The Guid returned by the <see cref="EnterMethod(bool, string, string, int)"/> method.</param>
@@ -1368,7 +1533,7 @@ namespace xLogger
 
         /// <summary>
         ///     Logs a named message indicating that the execution flow of a method has reached an arbitrary checkpoint defined at design-time, and logs
-        ///     the specified list of varibles and the current execution time since the corresponding <see cref="EnterMethod(bool, string, string, int)"/> method was called.
+        ///     the specified list of variables and the current execution time since the corresponding <see cref="EnterMethod(bool, string, string, int)"/> method was called.
         /// </summary>
         /// <param name="name">The checkpoint name.</param>
         /// <param name="variables">A list of variables to be logged.</param>
@@ -1400,7 +1565,7 @@ namespace xLogger
 
         /// <summary>
         ///     Logs a message indicating that the execution flow of a method has reached an arbitrary checkpoint defined at design-time, and logs
-        ///     the specified list of varibles with the specified list of variable names.
+        ///     the specified list of variables with the specified list of variable names.
         /// </summary>
         /// <param name="variables">A list of variables to be logged.</param>
         /// <param name="variableNames">A string array of variable names to be logged along with the supplied variables.  The number and order should match the variable array.</param>
@@ -1429,7 +1594,7 @@ namespace xLogger
 
         /// <summary>
         ///     Logs a named message indicating that the execution flow of a method has reached an arbitrary checkpoint defined at design-time, and logs
-        ///     the specified list of varibles with the specified list of variable names.
+        ///     the specified list of variables with the specified list of variable names.
         /// </summary>
         /// <param name="name">The checkpoint name.</param>
         /// <param name="variables">A list of variables to be logged.</param>
@@ -1459,7 +1624,7 @@ namespace xLogger
 
         /// <summary>
         ///     Logs a message indicating that the execution flow of a method has reached an arbitrary checkpoint defined at design-time, and logs
-        ///     the specified list of varibles with the specified list of variable names, and the current execution time since the corresponding 
+        ///     the specified list of variables with the specified list of variable names, and the current execution time since the corresponding 
         ///     <see cref="EnterMethod(bool, string, string, int)"/> method was called.
         /// </summary>
         /// <param name="variables">A list of variables to be logged.</param>
@@ -1493,7 +1658,7 @@ namespace xLogger
 
         /// <summary>
         ///     Logs a named message indicating that the execution flow of a method has reached an arbitrary checkpoint defined at design-time, and logs
-        ///     the specified list of varibles with the specified list of variable names, and the current execution time since the corresponding 
+        ///     the specified list of variables with the specified list of variable names, and the current execution time since the corresponding 
         ///     <see cref="EnterMethod(bool, string, string, int)"/> method was called.
         /// </summary>
         /// <param name="name">The checkpoint name.</param>
@@ -1565,7 +1730,7 @@ namespace xLogger
         #region Exception
 
         /// <summary>
-        /// Logs Exception details.
+        ///     Logs Exception details.
         /// </summary>
         /// <param name="exception">The Exception to log.</param>
         /// <param name="caller">An implicit parameter which evaluates to the name of the method that called this method.</param>
@@ -1594,7 +1759,7 @@ namespace xLogger
         }
 
         /// <summary>
-        /// Logs Exception details to the specified logging level.
+        ///     Logs Exception details to the specified logging level.
         /// </summary>
         /// <param name="level">The logging level to which to log the exception.</param>
         /// <param name="exception">The Exception to log.</param>
@@ -1624,7 +1789,7 @@ namespace xLogger
         }
 
         /// <summary>
-        /// Logs Exception details and the current execution time since the corresponding <see cref="EnterMethod(bool, string, string, int)"/> method was called.
+        ///     Logs Exception details and the current execution time since the corresponding <see cref="EnterMethod(bool, string, string, int)"/> method was called.
         /// </summary>
         /// <param name="exception">The Exception to log.</param>
         /// <param name="guid">The Guid returned by the Enter() method.</param>
@@ -1657,7 +1822,7 @@ namespace xLogger
         }
 
         /// <summary>
-        /// Logs Exception details to the specified logging level along with the current execution time since the corresponding <see cref="EnterMethod(bool, string, string, int)"/> method was called.
+        ///     Logs Exception details to the specified logging level along with the current execution time since the corresponding <see cref="EnterMethod(bool, string, string, int)"/> method was called.
         /// </summary>
         /// <param name="level">The logging level to which to log the exception.</param>
         /// <param name="exception">The Exception to log.</param>
@@ -1691,7 +1856,7 @@ namespace xLogger
         }
 
         /// <summary>
-        /// Logs Exception details and the specified list of variables.
+        ///     Logs Exception details and the specified list of variables.
         /// </summary>
         /// <param name="exception">The Exception to log.</param>
         /// <param name="variables">A list of variables to be logged.</param>
@@ -1726,7 +1891,7 @@ namespace xLogger
         }
 
         /// <summary>
-        /// Logs Exception details and the specified list of variables to the specified logging level.
+        ///     Logs Exception details and the specified list of variables to the specified logging level.
         /// </summary>
         /// <param name="level">The logging level to which to log the exception.</param>
         /// <param name="exception">The Exception to log.</param>
@@ -1843,7 +2008,7 @@ namespace xLogger
         }
 
         /// <summary>
-        /// Logs Exception details and the specified list of variables and variable names.
+        ///     Logs Exception details and the specified list of variables and variable names.
         /// </summary>
         /// <param name="exception">The Exception to log.</param>
         /// <param name="variables">A list of variables to be logged.</param>
@@ -1880,7 +2045,7 @@ namespace xLogger
         }
 
         /// <summary>
-        /// Logs Exception details and the specified list of variables and variable names to the specified logging level.
+        ///     Logs Exception details and the specified list of variables and variable names to the specified logging level.
         /// </summary>
         /// <param name="level">The logging level to which to log the exception.</param>
         /// <param name="exception">The Exception to log.</param>
@@ -2051,7 +2216,7 @@ namespace xLogger
         #region Stack Trace
 
         /// <summary>
-        /// Logs the current execution stack.
+        ///     Logs the current execution stack.
         /// </summary>
         /// <param name="caller">An implicit parameter which evaluates to the name of the method that called this method.</param>
         /// <param name="filePath">An implicit parameter which evaluates to the filename from which the calling method was executed.</param>
@@ -2071,7 +2236,7 @@ namespace xLogger
         }
 
         /// <summary>
-        /// Logs the current execution stack to the specified logging level.
+        ///     Logs the current execution stack to the specified logging level.
         /// </summary>
         /// <param name="level">The logging level to which to log the exception.</param>
         /// <param name="caller">An implicit parameter which evaluates to the name of the method that called this method.</param>
@@ -2115,7 +2280,7 @@ namespace xLogger
         #region Private Static Methods
 
         /// <summary>
-        /// Returns an inverted excerpt of the current stack trace, omitting methods above Main() and those originating within this class.
+        ///     Returns an inverted excerpt of the current stack trace, omitting methods above Main() and those originating within this class.
         /// </summary>
         /// <returns>A list of type StackFrame containing an inverted excerpt of the current stack trace.</returns>
         private static List<StackFrame> GetInvertedStackExcerpt()
@@ -2150,8 +2315,8 @@ namespace xLogger
         }
 
         /// <summary>
-        /// Returns a "pretty" string representation of the provided Type;  specifically, corrects the naming of generic Types
-        /// and appends the type parameters for the type to the name as it appears in the code editor.
+        ///     Returns a "pretty" string representation of the provided Type;  specifically, corrects the naming of generic Types
+        ///     and appends the type parameters for the type to the name as it appears in the code editor.
         /// </summary>
         /// <param name="type">The type for which the colloquial name should be created.</param>
         /// <returns>A "pretty" string representation of the provided Type.</returns>
@@ -2161,7 +2326,7 @@ namespace xLogger
         }
 
         /// <summary>
-        /// Returns a List of type string containing each line of the indented serialization of the supplied object.
+        ///     Returns a List of type string containing each line of the indented serialization of the supplied object.
         /// </summary>
         /// <param name="obj">The object to serialize.</param>
         /// <returns>A List of type string containing each line of the indented serialization of the supplied object.</returns>
@@ -2192,13 +2357,14 @@ namespace xLogger
         }
 
         /// <summary>
-        /// Returns a list of type string containing each line of the indented serialization of the supplied Exception.
-        /// Prints each method contained within the StackTraceString property to it's own line.
+        ///     Returns a list of type string containing each line of the indented serialization of the supplied Exception.
+        ///     Prints each method contained within the StackTraceString property to it's own line.
         /// </summary>
         /// <param name="exception">The Exception to serialize.</param>
+        /// <param name="indent">The number of spaces to indent inner stack traces.</param>
         /// <returns>A List of type string containing each line of the indented serialization of the supplied Exception.</returns>
         /// <seealso cref="GetObjectSerialization(object)"/>
-        private static List<string> GetExceptionSerialization(Exception exception)
+        private static List<string> GetExceptionSerialization(Exception exception, int indent)
         {
             List<string> retVal = new List<string>();
 
@@ -2214,7 +2380,7 @@ namespace xLogger
                     // iterate over the lines contained within the StackTrace property of the provided Exception
                     foreach (string innerLine in exception.StackTrace.Replace("\r\n", "\n").Split('\n'))
                     {
-                        retVal.Add(new string(' ', Indent * 2) + innerLine.TrimStart());
+                        retVal.Add(new string(' ', indent * 2) + innerLine.TrimStart());
                     }
 
                     // add the close parenthesis
@@ -2230,7 +2396,7 @@ namespace xLogger
         }
 
         /// <summary>
-        /// Searches the execution stack and returns the topmost frame not originating from this class, indicating the calling frame.
+        ///     Searches the execution stack and returns the topmost frame not originating from this class, indicating the calling frame.
         /// </summary>
         /// <returns>The StackFrame containing the calling code.</returns>
         private static StackFrame GetCallingStackFrame()
@@ -2256,7 +2422,7 @@ namespace xLogger
         }
 
         /// <summary>
-        /// Builds and returns the calling method signature, including method name, parameter types and names.
+        ///     Builds and returns the calling method signature, including method name, parameter types and names.
         /// </summary>
         /// <param name="methodBase">The MethodInfo for which to return the signature.</param>
         /// <returns>The method signature, including method name, parameter types and names, of the calling method.</returns>
@@ -2312,7 +2478,24 @@ namespace xLogger
         #region Private Instance Methods
 
         /// <summary>
-        /// Logs the header string using the supplied logging method
+        ///     Retrieves the specified variable text from the NLog configuration or, if a variable matching the specified name
+        ///     doesn't exist in the configuration, the specified default value.
+        /// </summary>
+        /// <param name="variableName">The name of the variable within the NLog configuration for which the value is to be retrieved.</param>
+        /// <param name="defaultValue">The default value to substitute if the variable is not in the configuration.</param>
+        /// <returns>The layout text of the specified variable, or the default value if the variable could not be retrieved.</returns>
+        private string GetConfigurationVariableOr(string variableName, string defaultValue)
+        {
+            if (LogManager.Configuration.Variables.ContainsKey(variableName))
+            {
+                return LogManager.Configuration.Variables[variableName].Text;
+            }
+
+            return defaultValue;
+        }
+
+        /// <summary>
+        ///     Logs the header string using the supplied logging method
         /// </summary>
         /// <param name="level">The logging level to which to log the header.</param>
         /// <param name="prefix">The optional prefix string.</param>
@@ -2325,7 +2508,7 @@ namespace xLogger
         }
 
         /// <summary>
-        /// Logs the footer string using the supplied logging method
+        ///     Logs the footer string using the supplied logging method
         /// </summary>
         /// <param name="level">The logging level to which to log the footer.</param>
         /// <param name="prefix">The optional prefix string.</param>
@@ -2338,7 +2521,7 @@ namespace xLogger
         }
 
         /// <summary>
-        /// Logs the separator string using the supplied logging method
+        ///     Logs the separator string using the supplied logging method
         /// </summary>
         /// <param name="level">The logging level to which to log the separator.</param>
         /// <param name="prefix">The optional prefix string.</param>
@@ -2351,7 +2534,7 @@ namespace xLogger
         }
 
         /// <summary>
-        /// Logs the outer separator string with header and footer using the supplied logging method
+        ///     Logs the outer separator string with header and footer using the supplied logging method
         /// </summary>
         /// <param name="level">The logging level to which to log the separator.</param>
         /// <param name="prefix">The optional prefix string.</param>
@@ -2368,7 +2551,7 @@ namespace xLogger
         }
 
         /// <summary>
-        /// Logs the supplied variable list with the optionally supplied names.
+        ///     Logs the supplied variable list with the optionally supplied names.
         /// </summary>
         /// <param name="level">The logging level to which to log the variable list.</param>
         /// <param name="variables">The list of variables to log.</param>
@@ -2397,7 +2580,7 @@ namespace xLogger
                 // serialize the variable.  if the variable is an Exception of any type, use GetExceptionSerialization() to serialize it.
                 // this method splits the linebreaks in the stack trace string of Exceptions into multiple lines.
                 Type variableType = variables[v].GetType();
-                List<string> lines = variableType.IsSubclassOf(typeof(Exception)) || variableType.IsAssignableFrom(typeof(Exception)) ? GetExceptionSerialization((Exception)variables[v]) : GetObjectSerialization(variables[v]);
+                List<string> lines = variableType.IsSubclassOf(typeof(Exception)) || variableType.IsAssignableFrom(typeof(Exception)) ? GetExceptionSerialization((Exception)variables[v], Indent) : GetObjectSerialization(variables[v]);
 
                 for (int l = 0; l < lines.Count(); l++)
                 {
@@ -2407,7 +2590,7 @@ namespace xLogger
         }
 
         /// <summary>
-        /// Logs the execution duration for the persisted method matching the supplied Guid using the supplied message.
+        ///     Logs the execution duration for the persisted method matching the supplied Guid using the supplied message.
         /// </summary>
         /// <param name="level">The logging level to which to log the execution duration.</param>
         /// <param name="message">The message to log.</param>
@@ -2437,12 +2620,12 @@ namespace xLogger
             }
             else
             {
-                Trace(prefix + LinePrefix + "[Persisted Guid not found]");
+                Trace(prefix + LinePrefix + "[Persisted Guid '" + guid + "' not found]");
             }
         }
 
         /// <summary>
-        /// Logs the current stack trace, excluding everything before Main() and after the calling method using the supplied logging method.
+        ///     Logs the current stack trace, excluding everything before Main() and after the calling method using the supplied logging method.
         /// </summary>
         /// <param name="level">The logging level to which to log the stack trace.</param>
         /// <param name="prefix">The optional prefix string.</param>
@@ -2471,8 +2654,8 @@ namespace xLogger
         #region Public Classes 
         
         /// <summary>
-        /// Type used to differentiate a null parameter value and one which is intentionally excluded from a 
-        /// method entry log.
+        ///     Type used to differentiate a null parameter value and one which is intentionally excluded from a 
+        ///     method entry log.
         /// </summary>
         public class ExcludedParam
         {
@@ -2483,7 +2666,7 @@ namespace xLogger
         #region Private Classes
 
         /// <summary>
-        /// Internal type used to differentiate a null return value from an unspecified return value.
+        ///     Internal type used to differentiate a null return value from an unspecified return value.
         /// </summary>
         private class UnspecifiedReturnValue
         {

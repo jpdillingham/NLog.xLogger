@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace xLogger.Examples
+namespace NLog.xLogger.Examples
 {
     /// <summary>
     /// Example object.

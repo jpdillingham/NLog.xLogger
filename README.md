@@ -49,20 +49,22 @@ public static void EnterMethodExample(int one, int two, ExampleObject three)
 ##### Output
 
 ```
-[x]: ┌─────────── ─ ───────────────────────── ─────────────────────────────────────────────────────────────────── ─────── ─    ─     ─ 
-[x]: │ ──► Entering method: Void EnterMethodExample(Int32 one, Int32 two, ExampleObject three) (Program.cs:line 18) 
-[x]: │   ├┄┈ one: 1 
-[x]: │   ├┄┈ two: 2 
-[x]: │   ├┄┈ three: { 
-[x]: │   ├┄┈ three:   "num": 3, 
-[x]: │   ├┄┈ three:   "str": "three", 
-[x]: │   ├┄┈ three:   "list": [ 
-[x]: │   ├┄┈ three:     1.1, 
-[x]: │   ├┄┈ three:     2.2, 
-[x]: │   ├┄┈ three:     3.3 
-[x]: │   ├┄┈ three:   ] 
-[x]: │   └┄┈ three: } 
-[x]: └──────────────────── ───────────────────────────────  ─  ─          ─ ─ ─    ─   ─ 
+[x]: ┌────────────────────────────────────────────────────────────────────────────────────────────────────┄┈
+[x]: │ ──► Entering method: Void EnterMethodExample<Tone, Ttwo>(Int32 one, Int32 two, ExampleObject three) (Program.cs:line 56)
+[x]: │   ├┄┈ Tone: System.String
+[x]: │   ├┄┈ Ttwo: System.Boolean
+[x]: │   ├┄┈ one: 1
+[x]: │   ├┄┈ two: 2
+[x]: │   ├┄┈ three: {
+[x]: │   ├┄┈ three:   "Num": 3,
+[x]: │   ├┄┈ three:   "Str": "three",
+[x]: │   ├┄┈ three:   "List": [
+[x]: │   ├┄┈ three:     1.1,
+[x]: │   ├┄┈ three:     2.2,
+[x]: │   ├┄┈ three:     3.3
+[x]: │   ├┄┈ three:   ]
+[x]: │   └┄┈ three: }
+[x]: └──────────────────────────────────────────────────────────────────────────────────────────┄┈
 [x]: Standard log message 
 ```
 
@@ -90,24 +92,24 @@ public static ExampleObject ExitMethodPersistentExample(int one, int two)
 ##### Output
 
 ```
-[x]: ┌─────────── ─ ───────────────────────── ─────────────────────────────────────────────────────────────────── ─────── ─    ─     ─ 
-[x]: │ ──► Entering method: ExampleObject ExitMethodPersistentExample(Int32 one, Int32 two) (Program.cs:line 28), persisting with Guid: 6cd26c76-69a6-4425-a316-bf03368108b0 
-[x]: │   ├┄┈ one: 1 
-[x]: │   └┄┈ two: 2 
-[x]: └──────────────────── ───────────────────────────────  ─  ─          ─ ─ ─    ─   ─ 
-[x]: Standard log message 
-[x]: ┌─────────── ─ ───────────────────────── ─────────────────────────────────────────────────────────────────── ─────── ─    ─     ─ 
-[x]: │ ◄── Exiting method: ExampleObject ExitMethodPersistentExample(Int32 one, Int32 two) (Program.cs:line 35), Guid: 6cd26c76-69a6-4425-a316-bf03368108b0 
-[x]: │   ├┄┈ return: { 
-[x]: │   ├┄┈ return:   "num": 1, 
-[x]: │   ├┄┈ return:   "str": "return", 
-[x]: │   ├┄┈ return:   "list": [ 
-[x]: │   ├┄┈ return:     5.5 
-[x]: │   ├┄┈ return:   ] 
-[x]: │   └┄┈ return: } 
-[x]: ├──────────────────────── ─       ──  ─ 
-[x]: │ ◊ Method execution duration: 4.0107ms 
-[x]: └──────────────────── ───────────────────────────────  ─  ─          ─ ─ ─    ─   ─ 
+[x]: ┌────────────────────────────────────────────────────────────────────────────────────────────────────┄┈
+[x]: │ ──► Entering method: ExampleObject ExitMethodPersistentExample(Int32 one, Int32 two) (Program.cs:line 71), persisting with Guid: ee9f56c7-f910-447b-8d03-e14bd8598654
+[x]: │   ├┄┈ one: 1
+[x]: │   └┄┈ two: 2
+[x]: └──────────────────────────────────────────────────────────────────────────────────────────┄┈
+[x]: Standard log message
+[x]: ┌────────────────────────────────────────────────────────────────────────────────────────────────────┄┈
+[x]: │ ◄── Exiting method: ExampleObject ExitMethodPersistentExample(Int32 one, Int32 two) (Program.cs:line 78), Guid: ee9f56c7-f910-447b-8d03-e14bd8598654
+[x]: │   ├┄┈ return: {
+[x]: │   ├┄┈ return:   "Num": 1,
+[x]: │   ├┄┈ return:   "Str": "return",
+[x]: │   ├┄┈ return:   "List": [
+[x]: │   ├┄┈ return:     5.5
+[x]: │   ├┄┈ return:   ]
+[x]: │   └┄┈ return: }
+[x]: ├────────────────────────────────────┄┈
+[x]: │ ◊ Method execution duration: 2.0017ms
+[x]: └──────────────────────────────────────────────────────────────────────────────────────────┄┈
 
 ```
 
@@ -140,26 +142,29 @@ public static int CheckpointExample(int one)
 ##### Output
 
 ```
-[x]: ┌─────────── ─ ───────────────────────── ─────────────────────────────────────────────────────────────────── ─────── ─    ─     ─ 
-[x]: │ ──► Entering method: Int32 CheckpointExample(Int32 one) (Program.cs:line 42), persisting with Guid: df75374b-9909-4680-84d5-1b0b5c52df09 
-[x]: │   └┄┈ one: 1 
-[x]: └──────────────────── ───────────────────────────────  ─  ─          ─ ─ ─    ─   ─ 
-[x]: Standard log message 
-[x]: ┌─────────── ─ ───────────────────────── ─────────────────────────────────────────────────────────────────── ─────── ─    ─     ─ 
-[x]: │ √ Checkpoint 'example checkpoint' reached in method: Int32 CheckpointExample(Int32 one) (Program.cs:line 48), Guid: df75374b-9909-4680-84d5-1b0b5c52df09 
-[x]: │   ├┄┈ one: 1 
-[x]: │   ├┄┈ two: 2 
-[x]: │   └┄┈ three: 3 
-[x]: ├──────────────────────── ─       ──  ─ 
-[x]: │ ◊ Current execution duration: 0.5015ms 
-[x]: └──────────────────── ───────────────────────────────  ─  ─          ─ ─ ─    ─   ─ 
-[x]: Another standard log message 
-[x]: ┌─────────── ─ ───────────────────────── ─────────────────────────────────────────────────────────────────── ─────── ─    ─     ─ 
-[x]: │ ◄── Exiting method: Int32 CheckpointExample(Int32 one) (Program.cs:line 54), Guid: df75374b-9909-4680-84d5-1b0b5c52df09 
-[x]: │   └┄┈ return: 6 
-[x]: ├──────────────────────── ─       ──  ─ 
-[x]: │ ◊ Method execution duration: 1.0032ms 
-[x]: └──────────────────── ───────────────────────────────  ─  ─          ─ ─ ─    ─   ─ 
+[x]: ┌────────────────────────────────────────────────────────────────────────────────────────────────────┄┈
+[x]: │ ──► Entering method: Int32 CheckpointExample(Int32 one) (Program.cs:line 89), persisting with Guid: 9792bbef-4609-429d-a0d3-478ba65e9b0e
+[x]: │   └┄┈ one: 1
+[x]: └──────────────────────────────────────────────────────────────────────────────────────────┄┈
+[x]: Standard log message
+[x]: ┌────────────────────────────────────────────────────────────────────────────────────────────────────┄┈
+[x]: │ √ Checkpoint 'example checkpoint' reached in method: Int32 CheckpointExample(Int32 one) (Program.cs:line 95), Guid: 9792bbef-4609-429d-a0d3-478ba65e9b0e
+[x]: │   ├┄┈ one: 1
+[x]: │   ├┄┈ two: 2
+[x]: │   └┄┈ three: 3
+[x]: ├────────────────────────────────────┄┈
+[x]: │ ◊ Current execution duration: 1.0009ms
+[x]: └──────────────────────────────────────────────────────────────────────────────────────────┄┈
+[x]: Another standard log message
+[x]: ┌────────────────────────────────────────────────────────────────────────────────────────────────────┄┈
+[x]: │ ◄── Exiting method: Int32 CheckpointExample(Int32 one) (Program.cs:line 101), Guid: 9792bbef-4609-429d-a0d3-478ba65e9b0e
+[x]: │   └┄┈ return: 6
+[x]: ├────────────────────────────────────┄┈
+[x]: │ ◊ Method execution duration: 1.0009ms
+[x]: └──────────────────────────────────────────────────────────────────────────────────────────┄┈
+[x]: ┌────────────────────────────────────────────────────────────────────────────────────────────────────┄┈
+[x]: │ ──► Entering method: Void ExceptionExample() (Program.cs:line 110)
+[x]: └──────────────────────────────────────────────────────────────────────────────────────────┄┈
 ```
 
 #### Exception()
@@ -194,36 +199,36 @@ public static void ExceptionExample()
 ##### Output
 
 ```
-[x]: ┌─────────── ─ ───────────────────────── ─────────────────────────────────────────────────────────────────── ─────── ─    ─     ─ 
-[x]: │ ──► Entering method: Void ExceptionExample() (Program.cs:line 63) 
-[x]: └──────────────────── ───────────────────────────────  ─  ─          ─ ─ ─    ─   ─ 
-[x]: ┌──┐┌─────────── ─ ───────────────────────── ─────────────────────────────────────────────────────────────────── ─────── ─    ─     ─ 
-[x]: │██││ ╳ Exception 'IndexOutOfRangeException' caught in method: Void ExceptionExample() (Program.cs:line 73): 
-[x]: │██││   └┄┈ "Index was outside the bounds of the array." 
-[x]: │██│├──────────────────────── ─       ──  ─ 
-[x]: │██││   └┄► Void Main(String[] args) 
-[x]: │██││      └┄► Void ExceptionExample() 
-[x]: │██│├──────────────────────── ─       ──  ─ 
-[x]: │██││   ├┄┈ ex: { 
-[x]: │██││   ├┄┈ ex:   "ClassName": "System.IndexOutOfRangeException", 
-[x]: │██││   ├┄┈ ex:   "Message": "Index was outside the bounds of the array.", 
-[x]: │██││   ├┄┈ ex:   "Data": null, 
-[x]: │██││   ├┄┈ ex:   "InnerException": null, 
-[x]: │██││   ├┄┈ ex:   "HelpURL": null, 
-[x]: │██││   ├┄┈ ex:   "StackTraceString": " 
-[x]: │██││   ├┄┈ ex:       at xLogger_Example.Program.ExceptionExample() in C:\Users\JP.WHATNET\OneDrive\Projects\xLogger\xLogger\xLogger-Example\xLogger-Example\Program.cs:line 69 
-[x]: │██││   ├┄┈ ex:   " 
-[x]: │██││   ├┄┈ ex:   "RemoteStackTraceString": null, 
-[x]: │██││   ├┄┈ ex:   "RemoteStackIndex": 0, 
-[x]: │██││   ├┄┈ ex:   "ExceptionMethod": "8\nExceptionExample\nxLogger-Example, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\nxLogger_Example.Program\nVoid ExceptionExample()", 
-[x]: │██││   ├┄┈ ex:   "HResult": -2146233080, 
-[x]: │██││   ├┄┈ ex:   "Source": "xLogger-Example", 
-[x]: │██││   ├┄┈ ex:   "WatsonBuckets": null 
-[x]: │██││   └┄┈ ex: } 
-[x]: └──┘└──────────────────── ───────────────────────────────  ─  ─          ─ ─ ─    ─   ─ 
-[x]: ┌─────────── ─ ───────────────────────── ─────────────────────────────────────────────────────────────────── ─────── ─    ─     ─ 
-[x]: │ ◄── Exiting method: Void ExceptionExample() (Program.cs:line 73) 
-[x]: └──────────────────── ───────────────────────────────  ─  ─          ─ ─ ─    ─   ─ 
+[x]: ┌────────────────────────────────────────────────────────────────────────────────────────────────────┄┈
+[x]: │ ──► Entering method: Void ExceptionExample() (Program.cs:line 110)
+[x]: └──────────────────────────────────────────────────────────────────────────────────────────┄┈
+[x]: ┌──┐┌────────────────────────────────────────────────────────────────────────────────────────────────────┄┈
+[x]: │██││ ╳ Exception 'IndexOutOfRangeException' caught in method: Void ExceptionExample() (Program.cs:line 120)
+[x]: │██││   └┄┈ "Index was outside the bounds of the array."
+[x]: │██│├────────────────────────────────────┄┈
+[x]: │██││   └┄► Void Main(String[] args)
+[x]: │██││      └┄► Void ExceptionExample()
+[x]: │██│├────────────────────────────────────┄┈
+[x]: │██││   ├┄┈ ex: {
+[x]: │██││   ├┄┈ ex:   "ClassName": "System.IndexOutOfRangeException",
+[x]: │██││   ├┄┈ ex:   "Message": "Index was outside the bounds of the array.",
+[x]: │██││   ├┄┈ ex:   "Data": null,
+[x]: │██││   ├┄┈ ex:   "InnerException": null,
+[x]: │██││   ├┄┈ ex:   "HelpURL": null,
+[x]: │██││   ├┄┈ ex:   "StackTraceString": "
+[x]: │██││   ├┄┈ ex:       at NLog.xLogger.Examples.Program.ExceptionExample() in C:\Users\JP.WHATNET\Google Drive\Projects\xLogger\Examples\Program.cs:line 116
+[x]: │██││   ├┄┈ ex:   "
+[x]: │██││   ├┄┈ ex:   "RemoteStackTraceString": null,
+[x]: │██││   ├┄┈ ex:   "RemoteStackIndex": 0,
+[x]: │██││   ├┄┈ ex:   "ExceptionMethod": "8\nExceptionExample\nExamples, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\nNLog.xLogger.Examples.Program\nVoid ExceptionExample()",
+[x]: │██││   ├┄┈ ex:   "HResult": -2146233080,
+[x]: │██││   ├┄┈ ex:   "Source": "Examples",
+[x]: │██││   ├┄┈ ex:   "WatsonBuckets": null
+[x]: │██││   └┄┈ ex: }
+[x]: └──┘└──────────────────────────────────────────────────────────────────────────────────────────┄┈
+[x]: ┌────────────────────────────────────────────────────────────────────────────────────────────────────┄┈
+[x]: │ ◄── Exiting method: Void ExceptionExample() (Program.cs:line 124)
+[x]: └──────────────────────────────────────────────────────────────────────────────────────────┄┈
 ```
 
 #### Stack Trace
@@ -241,11 +246,11 @@ public static void StackTraceExample()
 ##### Output
 
 ```
-[x]: ┌─────────── ─ ───────────────────────── ─────────────────────────────────────────────────────────────────── ─────── ─    ─     ─ 
-[x]: │ @ Stack Trace from method: Void StackTraceExample() (Program.cs:line 83) 
-[x]: │   └┄► Void Main(String[] args) 
-[x]: │      └┄► Void StackTraceExample() 
-[x]: └──────────────────── ───────────────────────────────  ─  ─          ─ ─ ─    ─   ─ 
+[x]: ┌────────────────────────────────────────────────────────────────────────────────────────────────────┄┈
+[x]: │ @ Stack Trace from method: Void StackTraceExample() (Program.cs:line 133)
+[x]: │   └┄► Void Main(String[] args)
+[x]: │      └┄► Void StackTraceExample()
+[x]: └──────────────────────────────────────────────────────────────────────────────────────────┄┈
 ```
 
 #### Additional Methods
@@ -274,41 +279,41 @@ public static void OtherExamples()
 ##### Output
 
 ```
-[x]: hello  
-[x]:  world! 
-[x]: ┌─────────── ─ ───────────────────────── ─────────────────────────────────────────────────────────────────── ─────── ─    ─     ─ 
-[x]: │ hello 
-[x]: │ again 
-[x]: │ world!! 
-[x]: └──────────────────── ───────────────────────────────  ─  ─          ─ ─ ─    ─   ─ 
-[x]: ┌─────────── ─ ───────────────────────── ─────────────────────────────────────────────────────────────────── ─────── ─    ─     ─ 
-[x]: │ ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ ■ ■■■■■■■■■■■■■■■ ■■  ■■ ■■   ■■■■ ■■     ■■     ■ ■ 
-[x]: └──────────────────── ───────────────────────────────  ─  ─          ─ ─ ─    ─   ─ 
-[x]: ┌─────────── ─ ───────────────────────── ─────────────────────────────────────────────────────────────────── ─────── ─    ─     ─ 
-[x]: │ ███    ███ ████████ ███       ███        ▄██████▄         ███         ███  ▄██████▄  ████████▄   ███       ████████▄  ▄███▄  
-[x]: │ ███    ███ ███      ███       ███       ███    ███        ███         ███ ███    ███ ███    ███  ███       ███   ▀███ █████  
-[x]: │ ███    ███ ███      ███       ███       ███    ███        ███         ███ ███    ███ ███    ███  ███       ███    ███ █████  
-[x]: │ ███▄▄▄▄███ ███▄▄▄   ███       ███       ███    ███        ███         ███ ███    ███ ███    ███  ███       ███    ███ █████  
-[x]: │ ███▀▀▀▀███ ███▀▀▀   ███       ███       ███    ███        ███   ▄█▄   ███ ███    ███ ████████▀   ███       ███    ███ ▀███▀  
-[x]: │ ███    ███ ███      ███       ███       ███    ███        ███  ▄█▀█▄  ███ ███    ███ ███▀██▄     ███       ███    ███  ███   
-[x]: │ ███    ███ ███      ███       ███       ███    ███        ███ ▄█▀ ▀█▄ ███ ███    ███ ███  ▀██▄   ███       ███   ▄███        
-[x]: │ ███    ███ ████████ █████████ █████████  ▀██████▀         █████▀   ▀█████  ▀██████▀  ███    ▀██▄ █████████ ████████▀   ███   
-[x]: │ ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ ■ ■■■■■■■■■■■■■■■ ■■  ■■ ■■   ■■■■ ■■     ■■     ■ ■ 
-[x]: └──────────────────── ───────────────────────────────  ─  ─          ─ ─ ─    ─   ─ 
-[x]: ┌─────────── ─ ───────────────────────── ─────────────────────────────────────────────────────────────────── ─────── ─    ─     ─ 
-[x]: │ ██   ██ ██████ ██       ██       ▄██████▄      ██      ██ ▄██████▄ ██████▄ ██       ██████▄  ▄███▄  
-[x]: │ ██   ██ ██     ██       ██       ██    ██      ██      ██ ██    ██ ██   ██ ██       ██   ▀██ █████  
-[x]: │ ██▄▄▄██ ██▄▄   ██       ██       ██    ██      ██      ██ ██    ██ ██   ██ ██       ██    ██ ▀███▀  
-[x]: │ ██▀▀▀██ ██▀▀   ██       ██       ██    ██      ██ ▄██▄ ██ ██    ██ ██████▀ ██       ██    ██  ███   
-[x]: │ ██   ██ ██     ██       ██       ██    ██      ██▄█▀▀█▄██ ██    ██ ██▀██▄  ██       ██   ▄██        
-[x]: │ ██   ██ ██████ ████████ ████████ ▀██████▀      ███▀  ▀███ ▀██████▀ ██  ▀██ ████████ ██████▀   ███   
-[x]: └──────────────────── ───────────────────────────────  ─  ─          ─ ─ ─    ─   ─ 
-[x]: ┌─────────── ─ ───────────────────────── ─────────────────────────────────────────────────────────────────── ─────── ─    ─     ─ 
-[x]: │ ██  ██ █████ ██     ██     ▄████▄    ██   ██ ▄████▄ ████▄ ██     █████▄ ▄██▄  
-[x]: │ ██▄▄██ ██▄▄  ██     ██     ██  ██    ██   ██ ██  ██ ██ ██ ██     ██  ██ ▀██▀  
-[x]: │ ██▀▀██ ██▀▀  ██     ██     ██  ██    ██ ▄ ██ ██  ██ ████▀ ██     ██  ██  ██   
-[x]: │ ██  ██ █████ ██████ ██████ ▀████▀    ███▀███ ▀████▀ ██▀█▄ ██████ █████▀  ▄▄   
-[x]: └──────────────────── ───────────────────────────────  ─  ─          ─ ─ ─    ─   ─ 
+[x]: hello
+[x]:  world!
+[x]: ┌────────────────────────────────────────────────────────────────────────────────────────────────────┄┈
+[x]: │ hello
+[x]: │ again
+[x]: │ world!!
+[x]: └──────────────────────────────────────────────────────────────────────────────────────────┄┈
+[x]: ┌────────────────────────────────────────────────────────────────────────────────────────────────────┄┈
+[x]: │ ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+[x]: └──────────────────────────────────────────────────────────────────────────────────────────┄┈
+[x]: ┌────────────────────────────────────────────────────────────────────────────────────────────────────┄┈
+[x]: │ ███    ███ ████████ ███       ███        ▄██████▄         ███         ███  ▄██████▄  ████████▄   ███       ████████▄  ▄███▄
+[x]: │ ███    ███ ███      ███       ███       ███    ███        ███         ███ ███    ███ ███    ███  ███       ███   ▀███ █████
+[x]: │ ███    ███ ███      ███       ███       ███    ███        ███         ███ ███    ███ ███    ███  ███       ███    ███ █████
+[x]: │ ███▄▄▄▄███ ███▄▄▄   ███       ███       ███    ███        ███         ███ ███    ███ ███    ███  ███       ███    ███ █████
+[x]: │ ███▀▀▀▀███ ███▀▀▀   ███       ███       ███    ███        ███   ▄█▄   ███ ███    ███ ████████▀   ███       ███    ███ ▀███▀
+[x]: │ ███    ███ ███      ███       ███       ███    ███        ███  ▄█▀█▄  ███ ███    ███ ███▀██▄     ███       ███    ███  ███
+[x]: │ ███    ███ ███      ███       ███       ███    ███        ███ ▄█▀ ▀█▄ ███ ███    ███ ███  ▀██▄   ███       ███   ▄███
+[x]: │ ███    ███ ████████ █████████ █████████  ▀██████▀         █████▀   ▀█████  ▀██████▀  ███    ▀██▄ █████████ ████████▀   ███
+[x]: │ ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+[x]: └──────────────────────────────────────────────────────────────────────────────────────────┄┈
+[x]: ┌────────────────────────────────────────────────────────────────────────────────────────────────────┄┈
+[x]: │ ██   ██ ██████ ██       ██       ▄██████▄      ██      ██ ▄██████▄ ██████▄ ██       ██████▄  ▄███▄
+[x]: │ ██   ██ ██     ██       ██       ██    ██      ██      ██ ██    ██ ██   ██ ██       ██   ▀██ █████
+[x]: │ ██▄▄▄██ ██▄▄   ██       ██       ██    ██      ██      ██ ██    ██ ██   ██ ██       ██    ██ ▀███▀
+[x]: │ ██▀▀▀██ ██▀▀   ██       ██       ██    ██      ██ ▄██▄ ██ ██    ██ ██████▀ ██       ██    ██  ███
+[x]: │ ██   ██ ██     ██       ██       ██    ██      ██▄█▀▀█▄██ ██    ██ ██▀██▄  ██       ██   ▄██
+[x]: │ ██   ██ ██████ ████████ ████████ ▀██████▀      ███▀  ▀███ ▀██████▀ ██  ▀██ ████████ ██████▀   ███
+[x]: └──────────────────────────────────────────────────────────────────────────────────────────┄┈
+[x]: ┌────────────────────────────────────────────────────────────────────────────────────────────────────┄┈
+[x]: │ ██  ██ █████ ██     ██     ▄████▄    ██   ██ ▄████▄ ████▄ ██     █████▄ ▄██▄
+[x]: │ ██▄▄██ ██▄▄  ██     ██     ██  ██    ██   ██ ██  ██ ██ ██ ██     ██  ██ ▀██▀
+[x]: │ ██▀▀██ ██▀▀  ██     ██     ██  ██    ██ ▄ ██ ██  ██ ████▀ ██     ██  ██  ██
+[x]: │ ██  ██ █████ ██████ ██████ ▀████▀    ███▀███ ▀████▀ ██▀█▄ ██████ █████▀  ▄▄
+[x]: └──────────────────────────────────────────────────────────────────────────────────────────┄┈
 ```
 
 # Notes
@@ -321,4 +326,29 @@ Performance is severely impacted with the Trace logging level enabled.  To allev
 
 ## Customization
 
-Customize the output of the logger by editing the strings in the ```Variables``` region to your liking.
+The formatting of the output can be customized by creating the following variables within the NLog configuration.
+
+```xml
+  <variable name="xLogger.Prefix" value="│ "/>
+  <variable name="xLogger.Header" value="┌────────────────────────────────────────────────────────────────────────────────────────────────────┄┈ "/>
+  <variable name="xLogger.EnterPrefix" value="${xLogger.Prefix}──► "/>
+  <variable name="xLogger.ExitPrefix" value="${xLogger.Prefix}◄── "/>
+  <variable name="xLogger.CheckpointPrefix" value="${xLogger.Prefix}√ "/>
+  <variable name="xLogger.ExceptionPrefix" value="${xLogger.Prefix}╳ "/>
+  <variable name="xLogger.StackTracePrefix" value="${xLogger.Prefix}@ "/>
+  <variable name="xLogger.ExecutionDurationPrefix" value="${xLogger.Prefix}◊ "/>
+  <variable name="xLogger.LinePrefix" value="${xLogger.Prefix}  ├┄┈ "/>
+  <variable name="xLogger.FinalLinePrefix" value="${xLogger.Prefix}  └┄┈ "/>
+  <variable name="xLogger.LinePrefixVariable" value="${xLogger.Prefix}  $└┄► "/>
+  <variable name="xLogger.Footer" value="└──────────────────────────────────────────────────────────────────────────────────────────┄┈ "/>
+  <variable name="xLogger.InnerSeparator" value="├────────────────────────────────────┄┈ "/>
+  <variable name="xLogger.OuterSeparator" value="■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■"/>
+  <variable name="xLogger.ExceptionHeaderPrefix" value="┌──┐"/>
+  <variable name="xLogger.ExceptionLinePrefix" value="│██│"/>
+  <variable name="xLogger.ExceptionFooterPrefix" value="└──┘"/>
+  <variable name="xLogger.Indent" value="3"/>
+  <variable name="xLogger.AutoPruneEnabled" value="true"/>
+  <variable name="xLogger.AutoPruneAge" value="300"/>
+```
+
+If any of the variables above are missing from the configuration, the default values are used.

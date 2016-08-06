@@ -2,7 +2,7 @@
 using System.Linq;
 using NLog;
 
-namespace xLogger.Examples
+namespace NLog.xLogger.Examples
 {
     /// <summary>
     /// Examples for the xLogger class.
@@ -46,8 +46,8 @@ namespace xLogger.Examples
         /// <summary>
         /// Example of <see cref="xLogger.EnterMethod(Type[], object[], bool, string, string, int)"/> usage.
         /// </summary>
-        /// <typeparam name="T1">The first Type parameter.</typeparam>
-        /// <typeparam name="T2">The second Type parameter.</typeparam>
+        /// <typeparam name="Tone">The first Type parameter.</typeparam>
+        /// <typeparam name="Ttwo">The second Type parameter.</typeparam>
         /// <param name="one">A number.</param>
         /// <param name="two">Another number.</param>
         /// <param name="three">An instance of ExampleObject.</param>

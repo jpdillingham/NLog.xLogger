@@ -1,7 +1,7 @@
 ﻿using System;
 using NLog;
 
-namespace xLogger.Examples
+namespace NLog.xLogger.Examples
 {
     /// <summary>
     /// A minimal log example.

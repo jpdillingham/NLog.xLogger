@@ -3,7 +3,7 @@ using NLog;
 using NLog.Config;
 using NLog.Targets;
 
-namespace xLogger.Tests
+namespace NLog.xLogger.Tests
 {
     /// <summary>
     /// Helper methods for <see cref="xLoggerTests"/>.
