@@ -3,7 +3,9 @@ An extension of NLog.Logger that provides additional functionality for tracing t
 
 This library depends on [NLog](https://www.nuget.org/packages/NLog/), [Json.NET](https://www.nuget.org/packages/Newtonsoft.Json) and my own [BigFont Class](https://github.com/jpdillingham/BigFont).
 
-[![Build status](https://ci.appveyor.com/api/projects/status/nxki86lvv5gxmgdl/branch/master?svg=true)](https://ci.appveyor.com/project/jpdillingham/xlogger/branch/master) [![codecov](https://codecov.io/gh/jpdillingham/xLogger/branch/master/graph/badge.svg)](https://codecov.io/gh/jpdillingham/xLogger)
+[![Build status](https://ci.appveyor.com/api/projects/status/nxki86lvv5gxmgdl/branch/master?svg=true)](https://ci.appveyor.com/project/jpdillingham/xlogger/branch/master) 
+[![codecov](https://codecov.io/gh/jpdillingham/xLogger/branch/master/graph/badge.svg)](https://codecov.io/gh/jpdillingham/xLogger)
+[![NuGet version](https://badge.fury.io/nu/NLog.xLogger.svg)](https://badge.fury.io/nu/NLog.xLogger)
 
 ## xLogger.xLogger
 
