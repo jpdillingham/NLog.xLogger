@@ -1,13 +1,20 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xLogger", "xLogger\xLogger.csproj", "{A54D735A-F56B-4CAF-8F53-E90F0DC8475A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Examples", "Examples\Examples.csproj", "{25104513-A40B-47EA-B0B5-BDA279AB78D3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xLogger.Tests", "xLogger.Tests\xLogger.Tests.csproj", "{12DD0308-7574-4266-9959-89E8155BD843}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1F89AD64-AB4A-44C1-BC9E-03E2AD00B081}"
+	ProjectSection(SolutionItems) = preProject
+		appveyor.yml = appveyor.yml
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
