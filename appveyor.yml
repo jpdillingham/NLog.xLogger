@@ -3,8 +3,3 @@ before_build:
 - cmd: nuget restore
 build:
   verbosity: minimal
-test_script:
-- .\packages\OpenCover.4.6.247-rc\tools\OpenCover.Console.exe -register:user -target:"%xunit20%\xunit.console.x86.exe" -targetargs:"C:\projects\xLogger\xLogger.Tests\bin\Debug\xLogger.Tests.dll -noshadow -appveyor" -returntargetcode -filter:"+[xLogger*]*" -excludebyattribute:*.ExcludeFromCodeCoverage* -hideskipped:All -output:.\xLogger_coverage.xml
-- "SET PATH=C:\\Python34;C:\\Python34\\Scripts;%PATH%"
-- pip install codecov
-- codecov -f "xLogger_coverage.xml"
