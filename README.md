@@ -1,11 +1,12 @@
 # xLogger
-An extension of NLog.Logger that provides additional functionality for tracing the entry and exit, arbitrary checkpoints, exceptions and stack traces within methods.
-
-This library depends on [NLog](https://www.nuget.org/packages/NLog/), [Json.NET](https://www.nuget.org/packages/Newtonsoft.Json) and my own [BigFont Class](https://github.com/jpdillingham/BigFont).
 
 [![Build status](https://ci.appveyor.com/api/projects/status/nxki86lvv5gxmgdl/branch/master?svg=true)](https://ci.appveyor.com/project/jpdillingham/xlogger/branch/master) 
 [![codecov](https://codecov.io/gh/jpdillingham/xLogger/branch/master/graph/badge.svg)](https://codecov.io/gh/jpdillingham/xLogger)
 [![NuGet version](https://badge.fury.io/nu/NLog.xLogger.svg)](https://badge.fury.io/nu/NLog.xLogger)
+
+An extension of NLog.Logger that provides additional functionality for tracing the entry and exit, arbitrary checkpoints, exceptions and stack traces within methods.
+
+This library depends on [NLog](https://www.nuget.org/packages/NLog/), [Json.NET](https://www.nuget.org/packages/Newtonsoft.Json) and my own [BigFont Class](https://github.com/jpdillingham/BigFont).
 
 ## xLogger.xLogger
 
@@ -165,9 +166,6 @@ public static int CheckpointExample(int one)
 [x]: │   └┄┈ return: 6
 [x]: ├────────────────────────────────────┄┈
 [x]: │ ◊ Method execution duration: 1.0009ms
-[x]: └──────────────────────────────────────────────────────────────────────────────────────────┄┈
-[x]: ┌────────────────────────────────────────────────────────────────────────────────────────────────────┄┈
-[x]: │ ──► Entering method: Void ExceptionExample() (Program.cs:line 110)
 [x]: └──────────────────────────────────────────────────────────────────────────────────────────┄┈
 ```
 
@@ -350,9 +348,12 @@ The formatting of the output can be customized by creating and modifying the fol
   <variable name="xLogger.ExceptionHeaderPrefix" value="┌──┐"/>
   <variable name="xLogger.ExceptionLinePrefix" value="│██│"/>
   <variable name="xLogger.ExceptionFooterPrefix" value="└──┘"/>
+  <variable name="xLogger.HeadingFont" value="Block"/>
+  <variable name="xLogger.SubHeadingFont" value="Block"/>
+  <variable name="xLogger.SubSubHeadingFont" value="Block"/>
   <variable name="xLogger.Indent" value="3"/>
   <variable name="xLogger.AutoPruneEnabled" value="true"/>
   <variable name="xLogger.AutoPruneAge" value="300"/>
 ```
 
-If any of the variables above are missing from the configuration, the default values are used.
+If any of the variables above are missing from the configuration, the default values are used.  The default values are hard coded within the library but are shown above for demonstration.

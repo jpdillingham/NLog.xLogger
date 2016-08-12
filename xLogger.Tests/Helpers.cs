@@ -69,5 +69,15 @@ namespace NLog.xLogger.Tests
         {
             return logger.EnterMethod(xLogger.TypeParams(typeof(T)), xLogger.Params(one, persistent), true);
         }
+
+        /// <summary>
+        ///     Helps the <see cref="xLoggerTests.EnterMethodDirtyInput(int, int)"/> method.
+        /// </summary>
+        /// <typeparam name="T1">First Type parameter.</typeparam>
+        /// <typeparam name="T2">Second Type parameter.</typeparam>
+        public static void EnterMethodTypeMismatch<T1, T2>()
+        {
+            logger.EnterMethod(xLogger.TypeParams(typeof(T1)));
+        }
     }
 }

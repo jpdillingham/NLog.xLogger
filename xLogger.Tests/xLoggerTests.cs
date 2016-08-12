@@ -458,6 +458,120 @@ namespace NLog.xLogger.Tests
 
         #endregion
 
+        #region HeadingFont
+
+        /// <summary>
+        ///     Tests <see cref="xLogger.HeadingFont"/> with good values.
+        /// </summary>
+        /// <param name="value"></param>
+        [Theory]
+        [InlineData("Block")]
+        [InlineData("Graffiti")]
+        public void HeadingFontGoodProperty(object value)
+        {
+            SetVariable("xLogger.HeadingFont", value.ToString());
+
+            BigFont.BigFont.Font expected;
+            Enum.TryParse(value.ToString(), out expected);
+
+            if (expected == default(BigFont.BigFont.Font))
+            {
+                throw new System.Exception("The InlineData for the test wasn't parsed to a valid enum value for BigFont.Font.");
+            }
+
+            Assert.Equal(expected, logger.HeadingFont);
+        }
+
+        /// <summary>
+        ///     Tests <see cref="xLogger.HeadingFont"/> with a bad value.
+        /// </summary>
+        [Fact]
+        public void HeadingFontBadProperty()
+        {
+            SetVariable("xLogger.HeadingFont", "test");
+
+            BigFont.BigFont.Font test;
+            Assert.Throws(typeof(FormatException), () => test = logger.HeadingFont);
+        }
+
+        #endregion
+
+        #region SubHeadingFont
+
+        /// <summary>
+        ///     Tests <see cref="xLogger.SubHeadingFont"/> with good values.
+        /// </summary>
+        /// <param name="value"></param>
+        [Theory]
+        [InlineData("Block")]
+        [InlineData("Graffiti")]
+        public void SubHeadingFontGoodProperty(object value)
+        {
+            SetVariable("xLogger.SubHeadingFont", value.ToString());
+
+            BigFont.BigFont.Font expected;
+            Enum.TryParse(value.ToString(), out expected);
+
+            if (expected == default(BigFont.BigFont.Font))
+            {
+                throw new System.Exception("The InlineData for the test wasn't parsed to a valid enum value for BigFont.Font.");
+            }
+
+            Assert.Equal(expected, logger.SubHeadingFont);
+        }
+
+        /// <summary>
+        ///     Tests <see cref="xLogger.SubHeadingFont"/> with a bad value.
+        /// </summary>
+        [Fact]
+        public void SubHeadingFontBadProperty()
+        {
+            SetVariable("xLogger.SubHeadingFont", "test");
+
+            BigFont.BigFont.Font test;
+            Assert.Throws(typeof(FormatException), () => test = logger.SubHeadingFont);
+        }
+
+        #endregion
+
+        #region SubSubHeadingFont
+
+        /// <summary>
+        ///     Tests <see cref="xLogger.SubSubHeadingFont"/> with good values.
+        /// </summary>
+        /// <param name="value"></param>
+        [Theory]
+        [InlineData("Block")]
+        [InlineData("Graffiti")]
+        public void SubSubHeadingFontGoodProperty(object value)
+        {
+            SetVariable("xLogger.SubSubHeadingFont", value.ToString());
+
+            BigFont.BigFont.Font expected;
+            Enum.TryParse(value.ToString(), out expected);
+
+            if (expected == default(BigFont.BigFont.Font))
+            {
+                throw new System.Exception("The InlineData for the test wasn't parsed to a valid enum value for BigFont.Font.");
+            }
+
+            Assert.Equal(expected, logger.SubSubHeadingFont);
+        }
+
+        /// <summary>
+        ///     Tests <see cref="xLogger.SubSubHeadingFont"/> with a bad value.
+        /// </summary>
+        [Fact]
+        public void SubSubHeadingFontBadProperty()
+        {
+            SetVariable("xLogger.SubSubHeadingFont", "test");
+
+            BigFont.BigFont.Font test;
+            Assert.Throws(typeof(FormatException), () => test = logger.SubSubHeadingFont);
+        }
+
+        #endregion
+
         #region Indent
 
         /// <summary>
@@ -796,6 +910,26 @@ namespace NLog.xLogger.Tests
             Assert.NotEqual(new Guid(), guid);
         }
 
+        /// <summary>
+        ///     Tests <see cref="xLogger.EnterMethod(string, string, int)"/> to ensure no exceptions are thrown if the input is "dirty".
+        /// </summary>
+        /// <param name="one">Parameter one.</param>
+        /// <param name="two">Parameter two.</param>
+        [Theory]
+        [InlineData(1, 2)]
+        public void EnterMethodDirtyInput(int one, int two)
+        {
+            Helpers.EnterMethodTypeMismatch<int, int>();  // tests for type parameter count mismatch
+            logger.EnterMethod(xLogger.Params(one)); // tests for parameter count mismatch
+
+            logger.EnterMethod(xLogger.Params(one, xLogger.Exclude())); // tests for excluded parameters
+
+            string test = "test";
+            logger.EnterMethod(xLogger.Params(one, test)); // tests for parameter type mismatch
+
+            logger.EnterMethod(xLogger.Params(one, null)); // tests for null handling
+        }
+
         #endregion
 
         #region ExitMethod
@@ -847,6 +981,15 @@ namespace NLog.xLogger.Tests
             Guid guid = logger.EnterMethod(true);
 
             logger.ExitMethod(true, guid);
+        }
+
+        /// <summary>
+        ///     Tests <see cref="xLogger.ExitMethod(string, string, int)"/> to ensure no exceptions are throw if the input is "dirty".
+        /// </summary>
+        [Fact]
+        public void ExitMethodDirtyInput()
+        {
+            logger.ExitMethod(null);
         }
 
         #endregion
@@ -1000,6 +1143,14 @@ namespace NLog.xLogger.Tests
             int one = 1;
             int two = 2;
             logger.Checkpoint("test", xLogger.Vars(one, two), xLogger.Names("one", "two"), guid);
+        }
+
+        [Fact]
+        public void CheckpointDirtyInput()
+        {
+            int one = 1;
+            int two = 2;
+            logger.Checkpoint("test", xLogger.Vars(one, two), xLogger.Names("one")); // tests name/var count mismatch
         }
 
         #endregion
@@ -1161,6 +1312,23 @@ namespace NLog.xLogger.Tests
         }
 
         #endregion
+
+        /// <summary>
+        ///     Tests each method to ensure no exceptions are thrown if the Trace logging level is disabled.
+        /// </summary>
+        [Fact]
+        public void TraceLevelDisabled()
+        {
+            LogManager.DisableLogging();
+
+            logger.EnterMethod();
+            logger.Checkpoint();
+            logger.Exception(new Exception());
+            logger.StackTrace();
+            logger.ExitMethod();
+
+            LogManager.EnableLogging();
+        }
 
         #endregion
 

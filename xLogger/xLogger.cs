@@ -309,6 +309,63 @@ namespace NLog.xLogger
         }
 
         /// <summary>
+        ///     Gets the <see cref="BigFont.BigFont.Font"/> to use when printing a heading.
+        /// </summary>
+        public BigFont.BigFont.Font HeadingFont
+        {
+            get
+            {
+                string value = GetConfigurationVariableOr("xLogger.HeadingFont", "Block");
+                BigFont.BigFont.Font headingFont;
+
+                if (!Enum.TryParse(value, out headingFont))
+                {
+                    throw new FormatException("The configured value for xLogger.HeadingFont ('" + value + "') is invalid.  The value must be 'Block' or 'Graffiti'.");
+                }
+
+                return headingFont;
+            }
+        }
+
+        /// <summary>
+        ///     Gets the <see cref="BigFont.BigFont.Font"/> to use when printing a subheading.
+        /// </summary>
+        public BigFont.BigFont.Font SubHeadingFont
+        {
+            get
+            {
+                string value = GetConfigurationVariableOr("xLogger.SubHeadingFont", "Block");
+                BigFont.BigFont.Font subHeadingFont;
+
+                if (!Enum.TryParse(value, out subHeadingFont))
+                {
+                    throw new FormatException("The configured value for xLogger.SubHeadingFont ('" + value + "') is invalid.  The value must be 'Block' or 'Graffiti'.");
+                }
+
+                return subHeadingFont;
+            }
+        }
+
+        /// <summary>
+        ///     Gets the <see cref="BigFont.BigFont.Font"/> to use when printing a subsubheading.
+        /// </summary>
+        public BigFont.BigFont.Font SubSubHeadingFont
+        {
+            get
+            {
+                string value = GetConfigurationVariableOr("xLogger.SubSubHeadingFont", "Block");
+                BigFont.BigFont.Font subSubHeadingFont;
+
+                if (!Enum.TryParse(value, out subSubHeadingFont))
+                {
+                    throw new FormatException("The configured value for xLogger.SubSubHeadingFont ('" + value + "') is invalid.  The value must be 'Block' or 'Graffiti'.");
+                }
+
+                return subSubHeadingFont;
+            }
+        }
+
+        /// <summary>
         ///     Gets the number of spaces to indent lines where indentation is applied.
         /// </summary>
         public int Indent
@@ -724,7 +781,7 @@ namespace NLog.xLogger
             }
 
             // get the BigFont for the message
-            string[] heading = BigFont.BigFont.Generate(message, BigFont.BigFont.FontSize.Large);
+            string[] heading = BigFont.BigFont.Generate(message, HeadingFont, BigFont.BigFont.FontSize.Large);
 
             // convert the array to a list so we can easily append a line
             List<string> styledHeading = new List<string>(heading);
@@ -755,7 +812,7 @@ namespace NLog.xLogger
         /// </example>
         public void SubHeading(LogLevel level, string message)
         {
-            MultilineWrapped(level, BigFont.BigFont.Generate(message, BigFont.BigFont.FontSize.Medium));
+            MultilineWrapped(level, BigFont.BigFont.Generate(message, SubHeadingFont, BigFont.BigFont.FontSize.Medium));
         }
 
         /// <summary>
@@ -777,7 +834,7 @@ namespace NLog.xLogger
         /// </example>
         public void SubSubHeading(LogLevel level, string message)
         {
-            MultilineWrapped(level, BigFont.BigFont.Generate(message, BigFont.BigFont.FontSize.Small));
+            MultilineWrapped(level, BigFont.BigFont.Generate(message, SubSubHeadingFont, BigFont.BigFont.FontSize.Small));
         }
 
         #region EnterMethod
