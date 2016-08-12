@@ -328,7 +328,7 @@ namespace NLog.xLogger
         }
 
         /// <summary>
-        ///     Gets the <see cref="BigFont.BigFont.Font"/> to use when printing a subheading.
+        ///     Gets the <see cref="BigFont.BigFont.Font"/> to use when printing a sub-heading.
         /// </summary>
         public BigFont.BigFont.Font SubHeadingFont
         {
@@ -347,7 +347,7 @@ namespace NLog.xLogger
         }
 
         /// <summary>
-        ///     Gets the <see cref="BigFont.BigFont.Font"/> to use when printing a subsubheading.
+        ///     Gets the <see cref="BigFont.BigFont.Font"/> to use when printing a sub-sub-heading.
         /// </summary>
         public BigFont.BigFont.Font SubSubHeadingFont
         {

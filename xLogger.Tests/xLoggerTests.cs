@@ -463,7 +463,7 @@ namespace NLog.xLogger.Tests
         /// <summary>
         ///     Tests <see cref="xLogger.HeadingFont"/> with good values.
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="value">Inline data.</param>
         [Theory]
         [InlineData("Block")]
         [InlineData("Graffiti")]
@@ -501,7 +501,7 @@ namespace NLog.xLogger.Tests
         /// <summary>
         ///     Tests <see cref="xLogger.SubHeadingFont"/> with good values.
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="value">Inline data.</param>
         [Theory]
         [InlineData("Block")]
         [InlineData("Graffiti")]
@@ -539,7 +539,7 @@ namespace NLog.xLogger.Tests
         /// <summary>
         ///     Tests <see cref="xLogger.SubSubHeadingFont"/> with good values.
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="value">Inline data.</param>
         [Theory]
         [InlineData("Block")]
         [InlineData("Graffiti")]
@@ -989,7 +989,7 @@ namespace NLog.xLogger.Tests
         [Fact]
         public void ExitMethodDirtyInput()
         {
-            logger.ExitMethod(null);
+            logger.ExitMethod(null, new Guid(), "caller", "path", 0);
         }
 
         #endregion
@@ -1145,6 +1145,9 @@ namespace NLog.xLogger.Tests
             logger.Checkpoint("test", xLogger.Vars(one, two), xLogger.Names("one", "two"), guid);
         }
 
+        /// <summary>
+        ///     Tests <see cref="xLogger.Checkpoint(string)"/> to ensure no exceptions are thrown with "dirty" input.
+        /// </summary>
         [Fact]
         public void CheckpointDirtyInput()
         {
@@ -1319,15 +1322,31 @@ namespace NLog.xLogger.Tests
         [Fact]
         public void TraceLevelDisabled()
         {
-            LogManager.DisableLogging();
+            // disable tracing
+            foreach (var rule in LogManager.Configuration.LoggingRules)
+            {
+                rule.DisableLoggingForLevel(LogLevel.Trace);
+            }
+
+            LogManager.ReconfigExistingLoggers();
+
+            Assert.Equal(false, logger.IsEnabled(LogLevel.Trace));
 
             logger.EnterMethod();
             logger.Checkpoint();
-            logger.Exception(new Exception());
+            logger.Exception(LogLevel.Trace, new Exception());
             logger.StackTrace();
             logger.ExitMethod();
 
-            LogManager.EnableLogging();
+            // re-enable tracing
+            foreach (var rule in LogManager.Configuration.LoggingRules)
+            {
+                rule.EnableLoggingForLevel(LogLevel.Trace);
+            }
+
+            LogManager.ReconfigExistingLoggers();
+
+            Assert.Equal(true, logger.IsEnabled(LogLevel.Trace));
         }
 
         #endregion
