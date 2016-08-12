@@ -5,7 +5,7 @@ build:
   project: xLogger.sln
   verbosity: minimal
 test_script:
-- .\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:"%xunit20%\xunit.console.x86.exe" -targetargs:"C:\projects\xlogger\xLogger.Tests\bin\Debug\xLogger.Tests.dll -noshadow -appveyor" -returntargetcode -filter:"+[xLogger*]*" -excludebyattribute:*.ExcludeFromCodeCoverage* -hideskipped:All -output:.\xLogger_coverage.xml
+- .\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:"%xunit20%\xunit.console.x86.exe" -targetargs:"C:\projects\xlogger\xLogger.Tests\bin\Debug\xLogger.Tests.dll -noshadow -appveyor" -returntargetcode -filter:"+[NLog.xLogger*]*" -excludebyattribute:*.ExcludeFromCodeCoverage* -hideskipped:All -output:.\xLogger_coverage.xml
 - "SET PATH=C:\\Python34;C:\\Python34\\Scripts;%PATH%"
 - pip install codecov
 - codecov -f "xLogger_coverage.xml"
