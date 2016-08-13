@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("xLogger")]
+[assembly: AssemblyTitle("NLog.xLogger")]
 [assembly: AssemblyDescription("A C# Class Library that extends NLog.Logger to provide additional functionality for tracing the entry and exit, arbitrary checkpoints, exceptions and stack traces within methods.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("xLogger")]
+[assembly: AssemblyProduct("NLog.xLogger")]
 [assembly: AssemblyCopyright("Copyright (c) 2016 JP Dillingham (jp@dillingham.ws)")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
