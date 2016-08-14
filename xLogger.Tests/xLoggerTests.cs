@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using NLog.Config;
 using NLog.Targets;
+using Utility.BigFont;
 using Xunit;
 
 namespace NLog.xLogger.Tests
@@ -471,10 +472,10 @@ namespace NLog.xLogger.Tests
         {
             SetVariable("xLogger.HeadingFont", value.ToString());
 
-            BigFont.BigFont.Font expected;
+            Font expected;
             Enum.TryParse(value.ToString(), out expected);
 
-            if (expected == default(BigFont.BigFont.Font))
+            if (expected == default(Font))
             {
                 throw new System.Exception("The InlineData for the test wasn't parsed to a valid enum value for BigFont.Font.");
             }
@@ -490,7 +491,7 @@ namespace NLog.xLogger.Tests
         {
             SetVariable("xLogger.HeadingFont", "test");
 
-            BigFont.BigFont.Font test;
+            Font test;
             Assert.Throws(typeof(FormatException), () => test = logger.HeadingFont);
         }
 
@@ -509,10 +510,10 @@ namespace NLog.xLogger.Tests
         {
             SetVariable("xLogger.SubHeadingFont", value.ToString());
 
-            BigFont.BigFont.Font expected;
+            Font expected;
             Enum.TryParse(value.ToString(), out expected);
 
-            if (expected == default(BigFont.BigFont.Font))
+            if (expected == default(Font))
             {
                 throw new System.Exception("The InlineData for the test wasn't parsed to a valid enum value for BigFont.Font.");
             }
@@ -528,7 +529,7 @@ namespace NLog.xLogger.Tests
         {
             SetVariable("xLogger.SubHeadingFont", "test");
 
-            BigFont.BigFont.Font test;
+            Font test;
             Assert.Throws(typeof(FormatException), () => test = logger.SubHeadingFont);
         }
 
@@ -547,10 +548,10 @@ namespace NLog.xLogger.Tests
         {
             SetVariable("xLogger.SubSubHeadingFont", value.ToString());
 
-            BigFont.BigFont.Font expected;
+            Font expected;
             Enum.TryParse(value.ToString(), out expected);
 
-            if (expected == default(BigFont.BigFont.Font))
+            if (expected == default(Font))
             {
                 throw new System.Exception("The InlineData for the test wasn't parsed to a valid enum value for BigFont.Font.");
             }
@@ -566,7 +567,7 @@ namespace NLog.xLogger.Tests
         {
             SetVariable("xLogger.SubSubHeadingFont", "test");
 
-            BigFont.BigFont.Font test;
+            Font test;
             Assert.Throws(typeof(FormatException), () => test = logger.SubSubHeadingFont);
         }
 

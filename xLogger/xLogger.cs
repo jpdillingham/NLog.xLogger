@@ -46,7 +46,7 @@
       █  Dependencies:
       █     ├─ NLog (https://www.nuget.org/packages/NLog/)
       █     ├─ Json.NET (https://www.nuget.org/packages/Newtonsoft.Json/)
-      █     └─ the BigFont class (https://github.com/jpdillingham/BigFont)
+      █     └─ Utility.BigFont (https://www.nuget.org/packages/Utility.BigFont/)
       █ 
       ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀  ▀▀ ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██ 
                                                                                                    ██   
@@ -62,6 +62,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using Utility.BigFont;
 
 namespace NLog.xLogger
 {
@@ -309,14 +310,14 @@ namespace NLog.xLogger
         }
 
         /// <summary>
-        ///     Gets the <see cref="BigFont.BigFont.Font"/> to use when printing a heading.
+        ///     Gets the <see cref="Utility.BigFont.Font"/> to use when printing a heading.
         /// </summary>
-        public BigFont.BigFont.Font HeadingFont
+        public Font HeadingFont
         {
             get
             {
                 string value = GetConfigurationVariableOr("xLogger.HeadingFont", "Block");
-                BigFont.BigFont.Font headingFont;
+                Font headingFont;
 
                 if (!Enum.TryParse(value, out headingFont))
                 {
@@ -328,14 +329,14 @@ namespace NLog.xLogger
         }
 
         /// <summary>
-        ///     Gets the <see cref="BigFont.BigFont.Font"/> to use when printing a sub-heading.
+        ///     Gets the <see cref="Utility.BigFont.Font"/> to use when printing a sub-heading.
         /// </summary>
-        public BigFont.BigFont.Font SubHeadingFont
+        public Font SubHeadingFont
         {
             get
             {
                 string value = GetConfigurationVariableOr("xLogger.SubHeadingFont", "Block");
-                BigFont.BigFont.Font subHeadingFont;
+                Font subHeadingFont;
 
                 if (!Enum.TryParse(value, out subHeadingFont))
                 {
@@ -347,14 +348,14 @@ namespace NLog.xLogger
         }
 
         /// <summary>
-        ///     Gets the <see cref="BigFont.BigFont.Font"/> to use when printing a sub-sub-heading.
+        ///     Gets the <see cref="Utility.BigFont.Font"/> to use when printing a sub-sub-heading.
         /// </summary>
-        public BigFont.BigFont.Font SubSubHeadingFont
+        public Font SubSubHeadingFont
         {
             get
             {
                 string value = GetConfigurationVariableOr("xLogger.SubSubHeadingFont", "Block");
-                BigFont.BigFont.Font subSubHeadingFont;
+                Font subSubHeadingFont;
 
                 if (!Enum.TryParse(value, out subSubHeadingFont))
                 {
@@ -756,12 +757,8 @@ namespace NLog.xLogger
         }
 
         /// <summary>
-        ///     Logs the supplied message converted to large sized text using <see cref="BigFont"/> and with the logging function specified in action.
+        ///     Logs the supplied message converted to large sized text using <see cref="Utility.BigFont"/> and with the logging function specified in action.
         /// </summary>
-        /// <remarks>
-        ///     Dependent upon the <see cref="BigFont"/> class (BigFont.cs)
-        ///     <see href="https://github.com/jpdillingham/BigFont"/>
-        /// </remarks>
         /// <param name="level">The logging level to which to log the message.</param>
         /// <param name="message">The message to convert and log.</param>
         /// <example>
@@ -781,7 +778,7 @@ namespace NLog.xLogger
             }
 
             // get the BigFont for the message
-            string[] heading = BigFont.BigFont.Generate(message, HeadingFont, BigFont.BigFont.FontSize.Large);
+            string[] heading = BigFontGenerator.Generate(message, HeadingFont, FontSize.Large);
 
             // convert the array to a list so we can easily append a line
             List<string> styledHeading = new List<string>(heading);
@@ -794,12 +791,8 @@ namespace NLog.xLogger
         }
 
         /// <summary>
-        ///     Logs the supplied message converted to medium sized text using <see cref="BigFont"/> and with the logging function specified in action.
+        ///     Logs the supplied message converted to medium sized text using <see cref="Utility.BigFont"/> and with the logging function specified in action.
         /// </summary>
-        /// <remarks>
-        ///     Dependent upon the <see cref="BigFont"/> class (BigFont.cs)
-        ///     <see href="https://github.com/jpdillingham/BigFont"/>
-        /// </remarks>
         /// <param name="level">The logging level to which to log the message.</param>
         /// <param name="message">The message to convert and log.</param>
         /// <example>
@@ -812,16 +805,12 @@ namespace NLog.xLogger
         /// </example>
         public void SubHeading(LogLevel level, string message)
         {
-            MultilineWrapped(level, BigFont.BigFont.Generate(message, SubHeadingFont, BigFont.BigFont.FontSize.Medium));
+            MultilineWrapped(level, BigFontGenerator.Generate(message, SubHeadingFont, FontSize.Medium));
         }
 
         /// <summary>
-        ///     Logs the supplied message converted to small text using <see cref="BigFont"/> and with the logging function specified in action.
+        ///     Logs the supplied message converted to small text using <see cref="Utility.BigFont"/> and with the logging function specified in action.
         /// </summary>
-        /// <remarks>
-        ///     Dependent upon the <see cref="BigFont"/> class (BigFont.cs)
-        ///     <see href="https://github.com/jpdillingham/BigFont"/>
-        /// </remarks>
         /// <param name="level">The logging level to which to log the message.</param>
         /// <param name="message">The message to convert and log.</param>
         /// <example>
@@ -834,7 +823,7 @@ namespace NLog.xLogger
         /// </example>
         public void SubSubHeading(LogLevel level, string message)
         {
-            MultilineWrapped(level, BigFont.BigFont.Generate(message, SubSubHeadingFont, BigFont.BigFont.FontSize.Small));
+            MultilineWrapped(level, BigFontGenerator.Generate(message, SubSubHeadingFont, FontSize.Small));
         }
 
         #region EnterMethod
