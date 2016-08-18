@@ -491,8 +491,9 @@ namespace NLog.xLogger.Tests
         {
             SetVariable("xLogger.HeadingFont", "test");
 
-            Font test;
-            Assert.Throws(typeof(FormatException), () => test = logger.HeadingFont);
+            Font test = logger.HeadingFont;
+
+            Assert.Equal(Font.Block, test);
         }
 
         #endregion
@@ -529,8 +530,9 @@ namespace NLog.xLogger.Tests
         {
             SetVariable("xLogger.SubHeadingFont", "test");
 
-            Font test;
-            Assert.Throws(typeof(FormatException), () => test = logger.SubHeadingFont);
+            Font test = logger.SubHeadingFont;
+
+            Assert.Equal(Font.Block, test);
         }
 
         #endregion
@@ -567,8 +569,9 @@ namespace NLog.xLogger.Tests
         {
             SetVariable("xLogger.SubSubHeadingFont", "test");
 
-            Font test;
-            Assert.Throws(typeof(FormatException), () => test = logger.SubSubHeadingFont);
+            Font test = logger.SubSubHeadingFont;
+
+            Assert.Equal(Font.Block, test);
         }
 
         #endregion
@@ -597,9 +600,9 @@ namespace NLog.xLogger.Tests
         {
             SetVariable("xLogger.Indent", "three");
 
-            int test;
+            int test = logger.Indent;
 
-            Assert.Throws(typeof(FormatException), () => test = logger.Indent);
+            Assert.Equal(3, test);
         }
 
         #endregion
@@ -628,9 +631,9 @@ namespace NLog.xLogger.Tests
         {
             SetVariable("xLogger.AutoPruneEnabled", "yes");
 
-            bool test;
+            bool test = logger.AutoPruneEnabled;
 
-            Assert.Throws(typeof(FormatException), () => test = logger.AutoPruneEnabled);
+            Assert.Equal(true, test);
         }
 
         #endregion
@@ -659,9 +662,9 @@ namespace NLog.xLogger.Tests
         {
             SetVariable("xLogger.AutoPruneAge", "ten");
 
-            int test;
+            int test = logger.AutoPruneAge;
 
-            Assert.Throws(typeof(FormatException), () => test = logger.AutoPruneAge);
+            Assert.Equal(300, test);
         }
 
         #endregion

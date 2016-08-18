@@ -316,12 +316,12 @@ namespace NLog.xLogger
         {
             get
             {
-                string value = GetConfigurationVariableOr("xLogger.HeadingFont", "Block");
-                Font headingFont;
+                Font headingFont = Font.Block;
+                Font headingFontParsed;
 
-                if (!Enum.TryParse(value, out headingFont))
+                if (Enum.TryParse(GetConfigurationVariableOr("xLogger.HeadingFont", headingFont.ToString()), out headingFontParsed))
                 {
-                    throw new FormatException("The configured value for xLogger.HeadingFont ('" + value + "') is invalid.  The value must be 'Block' or 'Graffiti'.");
+                    return headingFontParsed;
                 }
 
                 return headingFont;
@@ -335,12 +335,12 @@ namespace NLog.xLogger
         {
             get
             {
-                string value = GetConfigurationVariableOr("xLogger.SubHeadingFont", "Block");
-                Font subHeadingFont;
+                Font subHeadingFont = Font.Block;
+                Font subHeadingFontParsed;
 
-                if (!Enum.TryParse(value, out subHeadingFont))
+                if (Enum.TryParse(GetConfigurationVariableOr("xLogger.SubHeadingFont", subHeadingFont.ToString()), out subHeadingFontParsed))
                 {
-                    throw new FormatException("The configured value for xLogger.SubHeadingFont ('" + value + "') is invalid.  The value must be 'Block' or 'Graffiti'.");
+                    return subHeadingFontParsed;
                 }
 
                 return subHeadingFont;
@@ -354,12 +354,12 @@ namespace NLog.xLogger
         {
             get
             {
-                string value = GetConfigurationVariableOr("xLogger.SubSubHeadingFont", "Block");
-                Font subSubHeadingFont;
+                Font subSubHeadingFont = Font.Block;
+                Font subSubHeadingFontParsed;
 
-                if (!Enum.TryParse(value, out subSubHeadingFont))
+                if (Enum.TryParse(GetConfigurationVariableOr("xLogger.SubSubHeadingFont", subSubHeadingFont.ToString()), out subSubHeadingFontParsed))
                 {
-                    throw new FormatException("The configured value for xLogger.SubSubHeadingFont ('" + value + "') is invalid.  The value must be 'Block' or 'Graffiti'.");
+                    return subSubHeadingFontParsed;
                 }
 
                 return subSubHeadingFont;
@@ -373,12 +373,12 @@ namespace NLog.xLogger
         {
             get
             {
-                string value = GetConfigurationVariableOr("xLogger.Indent", "3");
-                int indent;
+                int indent = 3;
+                int indentParsed;
 
-                if (!int.TryParse(value, out indent))
+                if (int.TryParse(GetConfigurationVariableOr("xLogger.Indent", indent.ToString()), out indentParsed))
                 {
-                    throw new FormatException("The configured value for xLogger.Indent ('" + value + "') is invalid.  The value must be an integer.");
+                    return indentParsed;
                 }
 
                 return indent;
@@ -392,12 +392,12 @@ namespace NLog.xLogger
         {
             get
             {
-                string value = GetConfigurationVariableOr("xLogger.AutoPruneEnabled", "true");
-                bool autoPruneEnabled;
+                bool autoPruneEnabled = true;
+                bool autoPruneEnabledParsed;
 
-                if (!bool.TryParse(value, out autoPruneEnabled))
+                if (bool.TryParse(GetConfigurationVariableOr("xLogger.AutoPruneEnabled", autoPruneEnabled.ToString()), out autoPruneEnabledParsed))
                 {
-                    throw new FormatException("The configured value for xLogger.AutoPruneEnabled ('" + value + "') is invalid.  The value must be a boolean.");
+                    return autoPruneEnabledParsed;
                 }
 
                 return autoPruneEnabled;
@@ -411,12 +411,12 @@ namespace NLog.xLogger
         {
             get
             {
-                string value = GetConfigurationVariableOr("xLogger.AutoPruneAge", "300");
-                int autoPruneAge;
+                int autoPruneAge = 300;
+                int autoPruneAgeParsed;
 
-                if (!int.TryParse(value, out autoPruneAge))
+                if (int.TryParse(GetConfigurationVariableOr("xLogger.AutoPruneAge", autoPruneAge.ToString()), out autoPruneAgeParsed))
                 {
-                    throw new FormatException("The configured value for xLogger.AutoPruneAge ('" + value + "') is invalid.  The value must be an integer.");
+                    return autoPruneAgeParsed;
                 }
 
                 return autoPruneAge;
