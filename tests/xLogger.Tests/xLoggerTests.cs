@@ -671,7 +671,7 @@ namespace NLog.xLogger.Tests
 
         #endregion
 
-        #region Methods
+        #region Method Tests
 
         #region Static Methods
 

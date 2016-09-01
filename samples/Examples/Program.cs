@@ -14,7 +14,7 @@ namespace NLog.xLogger.Examples
         /// <summary>
         /// The logger for the class.
         /// </summary>
-        private static xLogger logger = (xLogger)LogManager.GetLogger("x", typeof(xLogger));
+        private static xLogger logger = xLogManager.GetxLogger("x");
 
         #endregion
 
