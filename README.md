@@ -33,7 +33,16 @@ Note that ```typeof(xLogger)``` must be passed to the factory method so that the
 The ```GetLogger()``` method returns a named instance of xLogger using the supplied name.
 
 ```c#
-private xLogger logger =(xLogger)LogManager.GetLogger("generic logger name", typeof(xLogger));
+private xLogger logger = (xLogger)LogManager.GetLogger("generic logger name", typeof(xLogger));
+```
+
+#### xLogManager
+
+The ```xLogManager``` wrapper for ```LogManager``` may also be used to create instances of xLogger using the ```GetCurrentClassxLogger()``` and ```GetxLogger()``` methods.
+
+```c#
+private xLogger logger = xLogManager.GetxLogger("generic name");
+private xLogger logger = xLogManager.GetCurrentClassxLogger();
 ```
 
 ### Methods
