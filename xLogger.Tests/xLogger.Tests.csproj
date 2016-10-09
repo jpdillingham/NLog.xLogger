@@ -84,7 +84,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\xLogger\xLogger.csproj">
+    <ProjectReference Include="..\xLogger\xLogger.csproj">
       <Project>{a54d735a-f56b-4caf-8f53-e90f0dc8475a}</Project>
       <Name>xLogger</Name>
     </ProjectReference>
