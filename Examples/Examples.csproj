@@ -68,9 +68,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\xLogger\xLogger.csproj">
+    <ProjectReference Include="..\NLog.xLogger\NLog.xLogger.csproj">
       <Project>{a54d735a-f56b-4caf-8f53-e90f0dc8475a}</Project>
-      <Name>xLogger</Name>
+      <Name>NLog.xLogger</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

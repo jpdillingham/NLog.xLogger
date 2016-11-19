@@ -3,8 +3,8 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/nxki86lvv5gxmgdl/branch/master?svg=true)](https://ci.appveyor.com/project/jpdillingham/xlogger/branch/master) 
 [![codecov](https://codecov.io/gh/jpdillingham/xLogger/branch/master/graph/badge.svg)](https://codecov.io/gh/jpdillingham/xLogger)
 [![Dependency Status](https://www.versioneye.com/user/projects/581c04a04304530b557dc736/badge.svg?style=flat-round)](https://www.versioneye.com/user/projects/581c04a04304530b557dc736)
-[![NuGet version](https://badge.fury.io/nu/NLog.xLogger.svg)](https://badge.fury.io/nu/NLog.xLogger)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/jpdillingham/xLogger/blob/master/LICENSE)
+[![NuGet version](https://img.shields.io/nuget/v/NLog.xLogger.svg)](https://www.nuget.org/packages/NLog.xLogger/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/jpdillingham/NLog.xLogger/blob/master/LICENSE)
 
 An extension of NLog.Logger that provides additional functionality for tracing the entry and exit, arbitrary checkpoints, exceptions and stack traces within methods.
 

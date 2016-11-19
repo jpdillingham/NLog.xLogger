@@ -10,9 +10,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xLogger.Tests", "xLogger.Tests\xLogger.Tests.csproj", "{12DD0308-7574-4266-9959-89E8155BD843}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NLog.xLogger.Tests", "NLog.xLogger.Tests\NLog.xLogger.Tests.csproj", "{12DD0308-7574-4266-9959-89E8155BD843}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xLogger", "xLogger\xLogger.csproj", "{A54D735A-F56B-4CAF-8F53-E90F0DC8475A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NLog.xLogger", "NLog.xLogger\NLog.xLogger.csproj", "{A54D735A-F56B-4CAF-8F53-E90F0DC8475A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Examples", "Examples\Examples.csproj", "{25104513-A40B-47EA-B0B5-BDA279AB78D3}"
 EndProject

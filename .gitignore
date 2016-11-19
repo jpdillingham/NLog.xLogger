@@ -237,3 +237,6 @@ _Pvt_Extensions
 
 # StyleCop
 *.StyleCop
+
+# OpenCover
+OpenCover/*
