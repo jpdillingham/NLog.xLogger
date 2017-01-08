@@ -19,7 +19,7 @@ namespace NLog.xLogger.Tests
         /// </summary>
         private static xLogger logger = (xLogger)LogManager.GetCurrentClassLogger(typeof(xLogger));
 
-        #endregion
+        #endregion Fields
 
         #region Constructors
 
@@ -39,7 +39,7 @@ namespace NLog.xLogger.Tests
             LogManager.Configuration = config;
         }
 
-        #endregion
+        #endregion Constructors
 
         #region Methods
 
@@ -47,7 +47,7 @@ namespace NLog.xLogger.Tests
 
         #region Public Instance Methods
 
-        #region Constructor Tests 
+        #region Constructor Tests
 
         /// <summary>
         ///     Tests the constructor for <see cref="xLogger"/>.
@@ -64,14 +64,14 @@ namespace NLog.xLogger.Tests
             Assert.Equal(0, persistedMethods.Count);
         }
 
-        #endregion
+        #endregion Constructor Tests
 
         #region Property Tests
 
         #region Prefix
 
         /// <summary>
-        ///     Tests <see cref="xLogger.Prefix"/> with the default value. 
+        ///     Tests <see cref="xLogger.Prefix"/> with the default value.
         /// </summary>
         [Fact]
         public void Prefix()
@@ -89,7 +89,7 @@ namespace NLog.xLogger.Tests
             Assert.Equal("prefix", logger.Prefix);
         }
 
-        #endregion
+        #endregion Prefix
 
         #region Header
 
@@ -112,7 +112,7 @@ namespace NLog.xLogger.Tests
             Assert.Equal("header", logger.Header);
         }
 
-        #endregion
+        #endregion Header
 
         #region EnterPrefix
 
@@ -135,7 +135,7 @@ namespace NLog.xLogger.Tests
             Assert.Equal("enterPrefix", logger.EnterPrefix);
         }
 
-        #endregion
+        #endregion EnterPrefix
 
         #region ExitPrefix
 
@@ -158,7 +158,7 @@ namespace NLog.xLogger.Tests
             Assert.Equal("exitPrefix", logger.ExitPrefix);
         }
 
-        #endregion
+        #endregion ExitPrefix
 
         #region CheckpointPrefix
 
@@ -181,7 +181,7 @@ namespace NLog.xLogger.Tests
             Assert.Equal("checkpointPrefix", logger.CheckpointPrefix);
         }
 
-        #endregion
+        #endregion CheckpointPrefix
 
         #region ExceptionPrefix
 
@@ -204,7 +204,7 @@ namespace NLog.xLogger.Tests
             Assert.Equal("exceptionPrefix", logger.ExceptionPrefix);
         }
 
-        #endregion
+        #endregion ExceptionPrefix
 
         #region StackTracePrefix
 
@@ -227,7 +227,7 @@ namespace NLog.xLogger.Tests
             Assert.Equal("StackTracePrefix", logger.StackTracePrefix);
         }
 
-        #endregion
+        #endregion StackTracePrefix
 
         #region ExecutionDurationPrefix
 
@@ -250,7 +250,7 @@ namespace NLog.xLogger.Tests
             Assert.Equal("ExecutionDurationPrefix", logger.ExecutionDurationPrefix);
         }
 
-        #endregion
+        #endregion ExecutionDurationPrefix
 
         #region LinePrefix
 
@@ -273,7 +273,7 @@ namespace NLog.xLogger.Tests
             Assert.Equal("LinePrefix", logger.LinePrefix);
         }
 
-        #endregion
+        #endregion LinePrefix
 
         #region FinalLinePrefix
 
@@ -296,7 +296,7 @@ namespace NLog.xLogger.Tests
             Assert.Equal("FinalLinePrefix", logger.FinalLinePrefix);
         }
 
-        #endregion
+        #endregion FinalLinePrefix
 
         #region LinePrefixVariable
 
@@ -319,7 +319,7 @@ namespace NLog.xLogger.Tests
             Assert.Equal("LinePrefixVariable", logger.LinePrefixVariable);
         }
 
-        #endregion
+        #endregion LinePrefixVariable
 
         #region Footer
 
@@ -342,7 +342,7 @@ namespace NLog.xLogger.Tests
             Assert.Equal("Footer", logger.Footer);
         }
 
-        #endregion
+        #endregion Footer
 
         #region InnerSeparator
 
@@ -365,7 +365,7 @@ namespace NLog.xLogger.Tests
             Assert.Equal("InnerSeparator", logger.InnerSeparator);
         }
 
-        #endregion
+        #endregion InnerSeparator
 
         #region OuterSeparator
 
@@ -388,7 +388,7 @@ namespace NLog.xLogger.Tests
             Assert.Equal("OuterSeparator", logger.OuterSeparator);
         }
 
-        #endregion
+        #endregion OuterSeparator
 
         #region ExceptionHeaderPrefix
 
@@ -411,7 +411,7 @@ namespace NLog.xLogger.Tests
             Assert.Equal("ExceptionHeaderPrefix", logger.ExceptionHeaderPrefix);
         }
 
-        #endregion
+        #endregion ExceptionHeaderPrefix
 
         #region ExceptionLinePrefix
 
@@ -434,7 +434,7 @@ namespace NLog.xLogger.Tests
             Assert.Equal("ExceptionLinePrefix", logger.ExceptionLinePrefix);
         }
 
-        #endregion
+        #endregion ExceptionLinePrefix
 
         #region ExceptionFooterPrefix
 
@@ -457,7 +457,7 @@ namespace NLog.xLogger.Tests
             Assert.Equal("ExceptionFooterPrefix", logger.ExceptionFooterPrefix);
         }
 
-        #endregion
+        #endregion ExceptionFooterPrefix
 
         #region HeadingFont
 
@@ -496,7 +496,7 @@ namespace NLog.xLogger.Tests
             Assert.Equal(Font.Block, test);
         }
 
-        #endregion
+        #endregion HeadingFont
 
         #region SubHeadingFont
 
@@ -535,7 +535,7 @@ namespace NLog.xLogger.Tests
             Assert.Equal(Font.Block, test);
         }
 
-        #endregion
+        #endregion SubHeadingFont
 
         #region SubSubHeadingFont
 
@@ -574,7 +574,7 @@ namespace NLog.xLogger.Tests
             Assert.Equal(Font.Block, test);
         }
 
-        #endregion
+        #endregion SubSubHeadingFont
 
         #region Indent
 
@@ -593,7 +593,7 @@ namespace NLog.xLogger.Tests
         }
 
         /// <summary>
-        ///     Tests <see cref="xLogger.Indent"/> with a bad value. 
+        ///     Tests <see cref="xLogger.Indent"/> with a bad value.
         /// </summary>
         [Fact]
         public void IndentBadProperty()
@@ -605,12 +605,12 @@ namespace NLog.xLogger.Tests
             Assert.Equal(3, test);
         }
 
-        #endregion
+        #endregion Indent
 
         #region AutoPruneEnabled
 
         /// <summary>
-        ///     Tests <see cref="xLogger.AutoPruneEnabled"/> with good values. 
+        ///     Tests <see cref="xLogger.AutoPruneEnabled"/> with good values.
         /// </summary>
         /// <param name="value">Inline data.</param>
         [Theory]
@@ -636,7 +636,7 @@ namespace NLog.xLogger.Tests
             Assert.Equal(true, test);
         }
 
-        #endregion
+        #endregion AutoPruneEnabled
 
         #region AutoPruneAge
 
@@ -667,9 +667,9 @@ namespace NLog.xLogger.Tests
             Assert.Equal(300, test);
         }
 
-        #endregion
+        #endregion AutoPruneAge
 
-        #endregion
+        #endregion Property Tests
 
         #region Method Tests
 
@@ -733,7 +733,7 @@ namespace NLog.xLogger.Tests
             Assert.IsType<xLogger.ExcludedParam>(test);
         }
 
-        #endregion
+        #endregion Static Methods
 
         #region Instance Methods
 
@@ -772,6 +772,10 @@ namespace NLog.xLogger.Tests
         public void MultilineArray()
         {
             logger.Multiline(LogLevel.Debug, new string[] { "Hello!", "World!" });
+
+            LogManager.DisableLogging();
+            logger.Multiline(LogLevel.Debug, new string[] { "Hello!", "World!" });
+            LogManager.EnableLogging();
         }
 
         /// <summary>
@@ -781,6 +785,10 @@ namespace NLog.xLogger.Tests
         public void MultilineWrappedScalar()
         {
             logger.MultilineWrapped(LogLevel.Debug, "Hello World!");
+
+            LogManager.DisableLogging();
+            logger.MultilineWrapped(LogLevel.Debug, "Hello World!");
+            LogManager.EnableLogging();
         }
 
         /// <summary>
@@ -799,6 +807,10 @@ namespace NLog.xLogger.Tests
         public void Separator()
         {
             logger.Separator(LogLevel.Debug);
+
+            LogManager.DisableLogging();
+            logger.Separator(LogLevel.Debug);
+            LogManager.EnableLogging();
         }
 
         /// <summary>
@@ -808,6 +820,11 @@ namespace NLog.xLogger.Tests
         public void Heading()
         {
             logger.Heading(LogLevel.Debug, "Hello World!");
+            logger.Heading(LogLevel.Debug, "Hello World!", true);
+
+            LogManager.DisableLogging();
+            logger.Heading(LogLevel.Debug, "Hello World!");
+            LogManager.EnableLogging();
         }
 
         /// <summary>
@@ -817,6 +834,7 @@ namespace NLog.xLogger.Tests
         public void SubHeading()
         {
             logger.SubHeading(LogLevel.Debug, "Hello World!");
+            logger.SubHeading(LogLevel.Debug, "Hello World!", true);
         }
 
         /// <summary>
@@ -934,7 +952,7 @@ namespace NLog.xLogger.Tests
             logger.EnterMethod(xLogger.Params(one, null)); // tests for null handling
         }
 
-        #endregion
+        #endregion EnterMethod
 
         #region ExitMethod
 
@@ -996,7 +1014,7 @@ namespace NLog.xLogger.Tests
             logger.ExitMethod(null, new Guid(), "caller", "path", 0);
         }
 
-        #endregion
+        #endregion ExitMethod
 
         #region Checkpoint
 
@@ -1138,7 +1156,7 @@ namespace NLog.xLogger.Tests
         }
 
         /// <summary>
-        ///     Tests <see cref="xLogger.Checkpoint(string, object[], string[], Guid, string, string, int)"/> 
+        ///     Tests <see cref="xLogger.Checkpoint(string, object[], string[], Guid, string, string, int)"/>
         /// </summary>
         [Fact]
         public void CheckpointNamedVariableNamesPersistent()
@@ -1160,7 +1178,7 @@ namespace NLog.xLogger.Tests
             logger.Checkpoint("test", xLogger.Vars(one, two), xLogger.Names("one")); // tests name/var count mismatch
         }
 
-        #endregion
+        #endregion Checkpoint
 
         #region Exception
 
@@ -1180,6 +1198,10 @@ namespace NLog.xLogger.Tests
         public void ExceptionLevel()
         {
             logger.Exception(LogLevel.Debug, new Exception());
+
+            Exception inner = new System.Exception();
+
+            logger.Exception(LogLevel.Debug, new Exception("", inner));
         }
 
         /// <summary>
@@ -1296,7 +1318,7 @@ namespace NLog.xLogger.Tests
             logger.Exception(LogLevel.Debug, new Exception(), xLogger.Vars(one, two), xLogger.Names("one", "two"), guid);
         }
 
-        #endregion
+        #endregion Exception
 
         #region Stack Trace
 
@@ -1318,7 +1340,7 @@ namespace NLog.xLogger.Tests
             logger.StackTrace(LogLevel.Debug);
         }
 
-        #endregion
+        #endregion Stack Trace
 
         /// <summary>
         ///     Tests each method to ensure no exceptions are thrown if the Trace logging level is disabled.
@@ -1353,13 +1375,13 @@ namespace NLog.xLogger.Tests
             Assert.Equal(true, logger.IsEnabled(LogLevel.Trace));
         }
 
-        #endregion
+        #endregion Instance Methods
 
-        #endregion
+        #endregion Method Tests
 
-        #endregion
+        #endregion Public Instance Methods
 
-        #endregion
+        #endregion Public Methods
 
         #region Private Methods
 
@@ -1382,10 +1404,10 @@ namespace NLog.xLogger.Tests
             }
         }
 
-        #endregion
+        #endregion Private Instance Methods
 
-        #endregion
+        #endregion Private Methods
 
-        #endregion
+        #endregion Methods
     }
 }
