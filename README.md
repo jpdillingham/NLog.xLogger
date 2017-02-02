@@ -1,6 +1,7 @@
 # xLogger
 
 [![Build status](https://ci.appveyor.com/api/projects/status/gb3d82pasjqgihjr?svg=true)](https://ci.appveyor.com/project/jpdillingham/nlog-xlogger)
+[![Build Status](https://travis-ci.org/jpdillingham/NLog.xLogger.svg?branch=master)](https://travis-ci.org/jpdillingham/NLog.xLogger)
 [![codecov](https://codecov.io/gh/jpdillingham/NLog.xLogger/branch/master/graph/badge.svg)](https://codecov.io/gh/jpdillingham/NLog.xLogger)
 [![NuGet version](https://img.shields.io/nuget/v/NLog.xLogger.svg)](https://www.nuget.org/packages/NLog.xLogger/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/jpdillingham/NLog.xLogger/blob/master/LICENSE)
