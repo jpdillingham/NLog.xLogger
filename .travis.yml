@@ -1,0 +1,7 @@
+language: csharp
+solution: NLog.xLogger.sln
+install:
+  - nuget restore NLog.xLogger.sln
+script:
+  - xbuild /p:Configuration=Release NLog.xLogger.sln
+  - mono ./packages/xunit.runner.console.2.1.0/tools/xunit.console.exe ./NLog.xLogger.Tests/bin/Release/NLog.xLogger.Tests.dll
