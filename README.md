@@ -1,4 +1,4 @@
-# xLogger
+# NLog.xLogger
 
 [![Build status](https://ci.appveyor.com/api/projects/status/gb3d82pasjqgihjr?svg=true)](https://ci.appveyor.com/project/jpdillingham/nlog-xlogger)
 [![Build Status](https://travis-ci.org/jpdillingham/NLog.xLogger.svg?branch=master)](https://travis-ci.org/jpdillingham/NLog.xLogger)
