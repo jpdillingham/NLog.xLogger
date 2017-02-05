@@ -1352,7 +1352,7 @@ namespace NLog.xLogger
                     // if the lengths match, log each name/value pair.
                     for (int t = 0; t < types.Length; t++)
                     {
-                        Log(level, (t == typeParameters.Length - 1 && (parameters != null || parameters?.Length == 0) ? FinalLinePrefix : LinePrefix) + types[t].Name + ": " + typeParameters[t].ToString());
+                        Log(level, (t == typeParameters.Length - 1 && (parameters != null || parameters?.Length == 0) ? LinePrefix : FinalLinePrefix) + types[t].Name + ": " + typeParameters[t].ToString());
                     }
                 }
             }
