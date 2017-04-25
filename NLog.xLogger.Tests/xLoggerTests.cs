@@ -1,4 +1,59 @@
-﻿using System;
+﻿/*
+      █▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ ▀▀▀▀▀▀▀▀▀▀▀▀▀▀ ▀▀▀  ▀  ▀      ▀▀
+      █
+      █               ▄█
+      █              ███
+      █   ▀███  ▐██▀ ███        ██████     ▄████▄     ▄████▄     ▄█████    █████
+      █     ██  ██   ███       ██    ██   ██    ▀    ██    ▀    ██   █    ██  ██
+      █      ████▀   ███       ██    ██  ▄██        ▄██        ▄██▄▄     ▄██▄▄█▀
+      █      ████    ███       ██    ██ ▀▀██ ███▄  ▀▀██ ███▄  ▀▀██▀▀    ▀███████
+      █    ▄██ ▀██   ███▌    ▄ ██    ██   ██    ██   ██    ██   ██   █    ██  ██
+      █   ███    ██▄ █████▄▄██  ██████    ██████▀    ██████▀    ███████   ██  ██
+      █
+      █       ███
+      █   ▀█████████▄
+      █      ▀███▀▀██    ▄█████   ▄█████     ██      ▄█████
+      █       ███   ▀   ██   █    ██  ▀  ▀███████▄   ██  ▀
+      █       ███      ▄██▄▄      ██         ██  ▀   ██
+      █       ███     ▀▀██▀▀    ▀███████     ██    ▀███████
+      █       ███       ██   █     ▄  ██     ██       ▄  ██
+      █      ▄████▀     ███████  ▄████▀     ▄██▀    ▄████▀
+      █
+ ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄ ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄ ▄▄  ▄▄ ▄▄   ▄▄▄▄ ▄▄     ▄▄     ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄ ▄ ▄
+ █████████████████████████████████████████████████████████████ ███████████████ ██  ██ ██   ████ ██     ██     ████████████████ █ █
+      ▄
+      █  Unit tests for the xLogger class.
+      █
+      █▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ ▀▀▀▀▀▀▀▀▀▀▀ ▀ ▀▀▀     ▀▀               ▀
+      █  The MIT License (MIT)
+      █
+      █  Copyright (c) 2016-2017 JP Dillingham (jp@dillingham.ws)
+      █
+      █  Permission is hereby granted, free of charge, to any person obtaining a copy
+      █  of this software and associated documentation files (the "Software"), to deal
+      █  in the Software without restriction, including without limitation the rights
+      █  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+      █  copies of the Software, and to permit persons to whom the Software is
+      █  furnished to do so, subject to the following conditions:
+      █
+      █  The above copyright notice and this permission notice shall be included in all
+      █  copies or substantial portions of the Software.
+      █
+      █  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+      █  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+      █  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+      █  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+      █  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+      █  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+      █  SOFTWARE.
+      █
+      ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀  ▀▀ ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀██
+                                                                                                   ██
+                                                                                               ▀█▄ ██ ▄█▀
+                                                                                                 ▀████▀
+                                                                                                   ▀▀                            */
+
+using System;
 using System.Collections.Generic;
 using NLog.Config;
 using NLog.Targets;
@@ -462,6 +517,19 @@ namespace NLog.xLogger.Tests
         #region HeadingFont
 
         /// <summary>
+        ///     Tests <see cref="xLogger.HeadingFont"/> with a bad value.
+        /// </summary>
+        [Fact]
+        public void HeadingFontBadProperty()
+        {
+            SetVariable("xLogger.HeadingFont", "test");
+
+            Font test = logger.HeadingFont;
+
+            Assert.Equal(Font.Block, test);
+        }
+
+        /// <summary>
         ///     Tests <see cref="xLogger.HeadingFont"/> with good values.
         /// </summary>
         /// <param name="value">Inline data.</param>
@@ -483,22 +551,22 @@ namespace NLog.xLogger.Tests
             Assert.Equal(expected, logger.HeadingFont);
         }
 
-        /// <summary>
-        ///     Tests <see cref="xLogger.HeadingFont"/> with a bad value.
-        /// </summary>
-        [Fact]
-        public void HeadingFontBadProperty()
-        {
-            SetVariable("xLogger.HeadingFont", "test");
-
-            Font test = logger.HeadingFont;
-
-            Assert.Equal(Font.Block, test);
-        }
-
         #endregion HeadingFont
 
         #region SubHeadingFont
+
+        /// <summary>
+        ///     Tests <see cref="xLogger.SubHeadingFont"/> with a bad value.
+        /// </summary>
+        [Fact]
+        public void SubHeadingFontBadProperty()
+        {
+            SetVariable("xLogger.SubHeadingFont", "test");
+
+            Font test = logger.SubHeadingFont;
+
+            Assert.Equal(Font.Block, test);
+        }
 
         /// <summary>
         ///     Tests <see cref="xLogger.SubHeadingFont"/> with good values.
@@ -522,22 +590,22 @@ namespace NLog.xLogger.Tests
             Assert.Equal(expected, logger.SubHeadingFont);
         }
 
-        /// <summary>
-        ///     Tests <see cref="xLogger.SubHeadingFont"/> with a bad value.
-        /// </summary>
-        [Fact]
-        public void SubHeadingFontBadProperty()
-        {
-            SetVariable("xLogger.SubHeadingFont", "test");
-
-            Font test = logger.SubHeadingFont;
-
-            Assert.Equal(Font.Block, test);
-        }
-
         #endregion SubHeadingFont
 
         #region SubSubHeadingFont
+
+        /// <summary>
+        ///     Tests <see cref="xLogger.SubSubHeadingFont"/> with a bad value.
+        /// </summary>
+        [Fact]
+        public void SubSubHeadingFontBadProperty()
+        {
+            SetVariable("xLogger.SubSubHeadingFont", "test");
+
+            Font test = logger.SubSubHeadingFont;
+
+            Assert.Equal(Font.Block, test);
+        }
 
         /// <summary>
         ///     Tests <see cref="xLogger.SubSubHeadingFont"/> with good values.
@@ -561,22 +629,22 @@ namespace NLog.xLogger.Tests
             Assert.Equal(expected, logger.SubSubHeadingFont);
         }
 
-        /// <summary>
-        ///     Tests <see cref="xLogger.SubSubHeadingFont"/> with a bad value.
-        /// </summary>
-        [Fact]
-        public void SubSubHeadingFontBadProperty()
-        {
-            SetVariable("xLogger.SubSubHeadingFont", "test");
-
-            Font test = logger.SubSubHeadingFont;
-
-            Assert.Equal(Font.Block, test);
-        }
-
         #endregion SubSubHeadingFont
 
         #region Indent
+
+        /// <summary>
+        ///     Tests <see cref="xLogger.Indent"/> with a bad value.
+        /// </summary>
+        [Fact]
+        public void IndentBadProperty()
+        {
+            SetVariable("xLogger.Indent", "three");
+
+            int test = logger.Indent;
+
+            Assert.Equal(3, test);
+        }
 
         /// <summary>
         ///     Tests <see cref="xLogger.Indent"/> with good values.
@@ -592,22 +660,22 @@ namespace NLog.xLogger.Tests
             Assert.Equal(value, logger.Indent);
         }
 
-        /// <summary>
-        ///     Tests <see cref="xLogger.Indent"/> with a bad value.
-        /// </summary>
-        [Fact]
-        public void IndentBadProperty()
-        {
-            SetVariable("xLogger.Indent", "three");
-
-            int test = logger.Indent;
-
-            Assert.Equal(3, test);
-        }
-
         #endregion Indent
 
         #region AutoPruneEnabled
+
+        /// <summary>
+        ///     Tests <see cref="xLogger.AutoPruneEnabled"/> with a bad value.
+        /// </summary>
+        [Fact]
+        public void AutoPruneEnabledBadProperty()
+        {
+            SetVariable("xLogger.AutoPruneEnabled", "yes");
+
+            bool test = logger.AutoPruneEnabled;
+
+            Assert.Equal(true, test);
+        }
 
         /// <summary>
         ///     Tests <see cref="xLogger.AutoPruneEnabled"/> with good values.
@@ -623,22 +691,22 @@ namespace NLog.xLogger.Tests
             Assert.Equal(value, logger.AutoPruneEnabled);
         }
 
-        /// <summary>
-        ///     Tests <see cref="xLogger.AutoPruneEnabled"/> with a bad value.
-        /// </summary>
-        [Fact]
-        public void AutoPruneEnabledBadProperty()
-        {
-            SetVariable("xLogger.AutoPruneEnabled", "yes");
-
-            bool test = logger.AutoPruneEnabled;
-
-            Assert.Equal(true, test);
-        }
-
         #endregion AutoPruneEnabled
 
         #region AutoPruneAge
+
+        /// <summary>
+        ///     Tests <see cref="xLogger.AutoPruneAge"/> with a bad value.
+        /// </summary>
+        [Fact]
+        public void AutoPruneAgeBadProperty()
+        {
+            SetVariable("xLogger.AutoPruneAge", "ten");
+
+            int test = logger.AutoPruneAge;
+
+            Assert.Equal(300, test);
+        }
 
         /// <summary>
         ///     Tests <see cref="xLogger.AutoPruneAge"/> with good values.
@@ -654,19 +722,6 @@ namespace NLog.xLogger.Tests
             Assert.Equal(value, logger.AutoPruneAge);
         }
 
-        /// <summary>
-        ///     Tests <see cref="xLogger.AutoPruneAge"/> with a bad value.
-        /// </summary>
-        [Fact]
-        public void AutoPruneAgeBadProperty()
-        {
-            SetVariable("xLogger.AutoPruneAge", "ten");
-
-            int test = logger.AutoPruneAge;
-
-            Assert.Equal(300, test);
-        }
-
         #endregion AutoPruneAge
 
         #endregion Property Tests
@@ -674,6 +729,28 @@ namespace NLog.xLogger.Tests
         #region Method Tests
 
         #region Static Methods
+
+        /// <summary>
+        ///     Tests <see cref="xLogger.Exclude()"/>.
+        /// </summary>
+        [Fact]
+        public void Exclude()
+        {
+            xLogger.ExcludedParam test = xLogger.Exclude();
+            Assert.IsType<xLogger.ExcludedParam>(test);
+        }
+
+        /// <summary>
+        ///     Tests <see cref="xLogger.Names()"/>.
+        /// </summary>
+        [Fact]
+        public void Names()
+        {
+            string[] test = xLogger.Names("one", "two");
+            Assert.Equal(2, test.Length);
+            Assert.Equal("one", test[0]);
+            Assert.Equal("two", test[1]);
+        }
 
         /// <summary>
         ///     Tests <see cref="xLogger.Params()"/>.
@@ -711,31 +788,67 @@ namespace NLog.xLogger.Tests
             Assert.Equal(2, test[1]);
         }
 
-        /// <summary>
-        ///     Tests <see cref="xLogger.Names()"/>.
-        /// </summary>
-        [Fact]
-        public void Names()
-        {
-            string[] test = xLogger.Names("one", "two");
-            Assert.Equal(2, test.Length);
-            Assert.Equal("one", test[0]);
-            Assert.Equal("two", test[1]);
-        }
-
-        /// <summary>
-        ///     Tests <see cref="xLogger.Exclude()"/>.
-        /// </summary>
-        [Fact]
-        public void Exclude()
-        {
-            xLogger.ExcludedParam test = xLogger.Exclude();
-            Assert.IsType<xLogger.ExcludedParam>(test);
-        }
-
         #endregion Static Methods
 
         #region Instance Methods
+
+        /// <summary>
+        ///     Tests <see cref="xLogger.Heading(NLog.LogLevel, string)"/>.
+        /// </summary>
+        [Fact]
+        public void Heading()
+        {
+            logger.Heading(LogLevel.Debug, "Hello World!");
+            logger.Heading(LogLevel.Debug, "Hello World!", true);
+
+            LogManager.DisableLogging();
+            logger.Heading(LogLevel.Debug, "Hello World!");
+            LogManager.EnableLogging();
+        }
+
+        /// <summary>
+        ///     Tests <see cref="xLogger.Multiline(NLog.LogLevel, string[])"/>.
+        /// </summary>
+        [Fact]
+        public void MultilineArray()
+        {
+            logger.Multiline(LogLevel.Debug, new string[] { "Hello!", "World!" });
+
+            LogManager.DisableLogging();
+            logger.Multiline(LogLevel.Debug, new string[] { "Hello!", "World!" });
+            LogManager.EnableLogging();
+        }
+
+        /// <summary>
+        ///     Tests <see cref="xLogger.Multiline(NLog.LogLevel, string)"/>.
+        /// </summary>
+        [Fact]
+        public void MultilineScalar()
+        {
+            logger.Multiline(LogLevel.Debug, "Hello World!");
+        }
+
+        /// <summary>
+        ///     Tests <see cref="xLogger.MultilineWrapped(NLog.LogLevel, string[])"/>.
+        /// </summary>
+        [Fact]
+        public void MultilineWrappedArray()
+        {
+            logger.MultilineWrapped(LogLevel.Debug, new string[] { "Hello!", "World!" });
+        }
+
+        /// <summary>
+        ///     Tests <see cref="xLogger.MultilineWrapped(NLog.LogLevel, string)"/>.
+        /// </summary>
+        [Fact]
+        public void MultilineWrappedScalar()
+        {
+            logger.MultilineWrapped(LogLevel.Debug, "Hello World!");
+
+            LogManager.DisableLogging();
+            logger.MultilineWrapped(LogLevel.Debug, "Hello World!");
+            LogManager.EnableLogging();
+        }
 
         /// <summary>
         ///     Tests <see cref="xLogger.PrunePersistedMethods(int)"/>.
@@ -757,50 +870,6 @@ namespace NLog.xLogger.Tests
         }
 
         /// <summary>
-        ///     Tests <see cref="xLogger.Multiline(NLog.LogLevel, string)"/>.
-        /// </summary>
-        [Fact]
-        public void MultilineScalar()
-        {
-            logger.Multiline(LogLevel.Debug, "Hello World!");
-        }
-
-        /// <summary>
-        ///     Tests <see cref="xLogger.Multiline(NLog.LogLevel, string[])"/>.
-        /// </summary>
-        [Fact]
-        public void MultilineArray()
-        {
-            logger.Multiline(LogLevel.Debug, new string[] { "Hello!", "World!" });
-
-            LogManager.DisableLogging();
-            logger.Multiline(LogLevel.Debug, new string[] { "Hello!", "World!" });
-            LogManager.EnableLogging();
-        }
-
-        /// <summary>
-        ///     Tests <see cref="xLogger.MultilineWrapped(NLog.LogLevel, string)"/>.
-        /// </summary>
-        [Fact]
-        public void MultilineWrappedScalar()
-        {
-            logger.MultilineWrapped(LogLevel.Debug, "Hello World!");
-
-            LogManager.DisableLogging();
-            logger.MultilineWrapped(LogLevel.Debug, "Hello World!");
-            LogManager.EnableLogging();
-        }
-
-        /// <summary>
-        ///     Tests <see cref="xLogger.MultilineWrapped(NLog.LogLevel, string[])"/>.
-        /// </summary>
-        [Fact]
-        public void MultilineWrappedArray()
-        {
-            logger.MultilineWrapped(LogLevel.Debug, new string[] { "Hello!", "World!" });
-        }
-
-        /// <summary>
         ///     Tests <see cref="xLogger.Separator(NLog.LogLevel)"/>.
         /// </summary>
         [Fact]
@@ -810,20 +879,6 @@ namespace NLog.xLogger.Tests
 
             LogManager.DisableLogging();
             logger.Separator(LogLevel.Debug);
-            LogManager.EnableLogging();
-        }
-
-        /// <summary>
-        ///     Tests <see cref="xLogger.Heading(NLog.LogLevel, string)"/>.
-        /// </summary>
-        [Fact]
-        public void Heading()
-        {
-            logger.Heading(LogLevel.Debug, "Hello World!");
-            logger.Heading(LogLevel.Debug, "Hello World!", true);
-
-            LogManager.DisableLogging();
-            logger.Heading(LogLevel.Debug, "Hello World!");
             LogManager.EnableLogging();
         }
 
@@ -858,81 +913,6 @@ namespace NLog.xLogger.Tests
         }
 
         /// <summary>
-        ///     Tests <see cref="xLogger.EnterMethod(Type[], string, string, int)"/>
-        /// </summary>
-        [Fact]
-        public void EnterMethodType()
-        {
-            Helpers.EnterMethodTypeHelper<int>();
-        }
-
-        /// <summary>
-        ///     Tests <see cref="xLogger.EnterMethod(object[], string, string, int)"/>.
-        /// </summary>
-        /// <param name="one">Parameter one.</param>
-        /// <param name="two">Parameter two.</param>
-        [Theory]
-        [InlineData(1, 2)]
-        public void EnterMethodParameters(int one, int two)
-        {
-            logger.EnterMethod(xLogger.Params(one, two));
-        }
-
-        /// <summary>
-        ///     Tests <see cref="xLogger.EnterMethod(bool, string, string, int)"/>.
-        /// </summary>
-        [Fact]
-        public void EnterMethodPersistent()
-        {
-            Guid guid = logger.EnterMethod(true);
-            Assert.NotEqual(new Guid(), guid);
-        }
-
-        /// <summary>
-        ///     Tests <see cref="xLogger.EnterMethod(Type[], object[], string, string, int)"/>
-        /// </summary>
-        /// <param name="one">Parameter one.</param>
-        [Theory]
-        [InlineData(1)]
-        public void EnterMethodTypeParameters(int one)
-        {
-            Helpers.EnterMethodTypeParameterHelper<int>(one);
-        }
-
-        /// <summary>
-        ///     Tests <see cref="xLogger.EnterMethod(Type[], bool, string, string, int)"/>.
-        /// </summary>
-        [Fact]
-        public void EnterMethodTypePersistent()
-        {
-            Guid guid = Helpers.EnterMethodTypePersistent<int>(true);
-            Assert.NotEqual(new Guid(), guid);
-        }
-
-        /// <summary>
-        ///     Tests <see cref="xLogger.EnterMethod(object[], bool, string, string, int)"/>.
-        /// </summary>
-        /// <param name="one">Parameter one.</param>
-        /// <param name="two">Parameter two.</param>
-        [Theory]
-        [InlineData(1, 2)]
-        public void EnterMethodParametersPersistent(int one, int two)
-        {
-            Guid guid = logger.EnterMethod(xLogger.Params(one, two), true);
-            Assert.NotEqual(new Guid(), guid);
-        }
-
-        /// <summary>
-        ///     Tests <see cref="xLogger.EnterMethod(Type[], object[], bool, string, string, int)"/>.
-        /// </summary>
-        [Fact]
-        public void EnterMethodTypeParametersPersistent()
-        {
-            Guid guid = Helpers.EnterMethodTypeParametersPersistent<int>(1, true);
-            Assert.NotEqual(new Guid(), guid);
-        }
-
-        /// <summary>
         ///     Tests <see cref="xLogger.EnterMethod(string, string, int)"/> to ensure no exceptions are thrown if the input is "dirty".
         /// </summary>
         /// <param name="one">Parameter one.</param>
@@ -952,6 +932,81 @@ namespace NLog.xLogger.Tests
             logger.EnterMethod(xLogger.Params(one, null)); // tests for null handling
         }
 
+        /// <summary>
+        ///     Tests <see cref="xLogger.EnterMethod(object[], string, string, int)"/>.
+        /// </summary>
+        /// <param name="one">Parameter one.</param>
+        /// <param name="two">Parameter two.</param>
+        [Theory]
+        [InlineData(1, 2)]
+        public void EnterMethodParameters(int one, int two)
+        {
+            logger.EnterMethod(xLogger.Params(one, two));
+        }
+
+        /// <summary>
+        ///     Tests <see cref="xLogger.EnterMethod(object[], bool, string, string, int)"/>.
+        /// </summary>
+        /// <param name="one">Parameter one.</param>
+        /// <param name="two">Parameter two.</param>
+        [Theory]
+        [InlineData(1, 2)]
+        public void EnterMethodParametersPersistent(int one, int two)
+        {
+            Guid guid = logger.EnterMethod(xLogger.Params(one, two), true);
+            Assert.NotEqual(new Guid(), guid);
+        }
+
+        /// <summary>
+        ///     Tests <see cref="xLogger.EnterMethod(bool, string, string, int)"/>.
+        /// </summary>
+        [Fact]
+        public void EnterMethodPersistent()
+        {
+            Guid guid = logger.EnterMethod(true);
+            Assert.NotEqual(new Guid(), guid);
+        }
+
+        /// <summary>
+        ///     Tests <see cref="xLogger.EnterMethod(Type[], string, string, int)"/>
+        /// </summary>
+        [Fact]
+        public void EnterMethodType()
+        {
+            Helpers.EnterMethodTypeHelper<int>();
+        }
+
+        /// <summary>
+        ///     Tests <see cref="xLogger.EnterMethod(Type[], object[], string, string, int)"/>
+        /// </summary>
+        /// <param name="one">Parameter one.</param>
+        [Theory]
+        [InlineData(1)]
+        public void EnterMethodTypeParameters(int one)
+        {
+            Helpers.EnterMethodTypeParameterHelper<int>(one);
+        }
+
+        /// <summary>
+        ///     Tests <see cref="xLogger.EnterMethod(Type[], object[], bool, string, string, int)"/>.
+        /// </summary>
+        [Fact]
+        public void EnterMethodTypeParametersPersistent()
+        {
+            Guid guid = Helpers.EnterMethodTypeParametersPersistent<int>(1, true);
+            Assert.NotEqual(new Guid(), guid);
+        }
+
+        /// <summary>
+        ///     Tests <see cref="xLogger.EnterMethod(Type[], bool, string, string, int)"/>.
+        /// </summary>
+        [Fact]
+        public void EnterMethodTypePersistent()
+        {
+            Guid guid = Helpers.EnterMethodTypePersistent<int>(true);
+            Assert.NotEqual(new Guid(), guid);
+        }
+
         #endregion EnterMethod
 
         #region ExitMethod
@@ -966,12 +1021,12 @@ namespace NLog.xLogger.Tests
         }
 
         /// <summary>
-        ///     Tests <see cref="xLogger.ExitMethod(object, string, string, int)"/>.
+        ///     Tests <see cref="xLogger.ExitMethod(string, string, int)"/> to ensure no exceptions are throw if the input is "dirty".
         /// </summary>
         [Fact]
-        public void ExitMethodReturn()
+        public void ExitMethodDirtyInput()
         {
-            logger.ExitMethod(true);
+            logger.ExitMethod(null, new Guid(), "caller", "path", 0);
         }
 
         /// <summary>
@@ -1006,12 +1061,12 @@ namespace NLog.xLogger.Tests
         }
 
         /// <summary>
-        ///     Tests <see cref="xLogger.ExitMethod(string, string, int)"/> to ensure no exceptions are throw if the input is "dirty".
+        ///     Tests <see cref="xLogger.ExitMethod(object, string, string, int)"/>.
         /// </summary>
         [Fact]
-        public void ExitMethodDirtyInput()
+        public void ExitMethodReturn()
         {
-            logger.ExitMethod(null, new Guid(), "caller", "path", 0);
+            logger.ExitMethod(true);
         }
 
         #endregion ExitMethod
@@ -1025,6 +1080,17 @@ namespace NLog.xLogger.Tests
         public void Checkpoint()
         {
             logger.Checkpoint();
+        }
+
+        /// <summary>
+        ///     Tests <see cref="xLogger.Checkpoint(string)"/> to ensure no exceptions are thrown with "dirty" input.
+        /// </summary>
+        [Fact]
+        public void CheckpointDirtyInput()
+        {
+            int one = 1;
+            int two = 2;
+            logger.Checkpoint("test", xLogger.Vars(one, two), xLogger.Names("one")); // tests name/var count mismatch
         }
 
         /// <summary>
@@ -1043,6 +1109,62 @@ namespace NLog.xLogger.Tests
         public void CheckpointNamed2()
         {
             logger.Checkpoint("test", "caller", "filePath", 0);
+        }
+
+        /// <summary>
+        ///     Tests <see cref="xLogger.Checkpoint(string, Guid, string, string, int)"/>.
+        /// </summary>
+        [Fact]
+        public void CheckpointNamedPersistent()
+        {
+            Guid guid = logger.EnterMethod(true);
+            logger.Checkpoint("test", guid);
+        }
+
+        /// <summary>
+        ///     Tests <see cref="xLogger.Checkpoint(string, object[], string[], string, string, int)"/>.
+        /// </summary>
+        [Fact]
+        public void CheckpointNamedVariableNames()
+        {
+            int one = 1;
+            int two = 2;
+            logger.Checkpoint("test", xLogger.Vars(one, two), xLogger.Names("one", "two"));
+        }
+
+        /// <summary>
+        ///     Tests <see cref="xLogger.Checkpoint(string, object[], string[], Guid, string, string, int)"/>
+        /// </summary>
+        [Fact]
+        public void CheckpointNamedVariableNamesPersistent()
+        {
+            Guid guid = logger.EnterMethod(true);
+            int one = 1;
+            int two = 2;
+            logger.Checkpoint("test", xLogger.Vars(one, two), xLogger.Names("one", "two"), guid);
+        }
+
+        /// <summary>
+        ///     Tests <see cref="xLogger.Checkpoint(string, object[], string, string, int)"/>.
+        /// </summary>
+        [Fact]
+        public void CheckpointNamedVariables()
+        {
+            int one = 1;
+            int two = 2;
+            logger.Checkpoint("test", xLogger.Vars(one, two));
+        }
+
+        /// <summary>
+        ///     Tests <see cref="xLogger.Checkpoint(string, object[], Guid, string, string, int)"/>.
+        /// </summary>
+        [Fact]
+        public void CheckpointNamedVariablesPersistent()
+        {
+            Guid guid = logger.EnterMethod(true);
+            int one = 1;
+            int two = 2;
+            logger.Checkpoint("test", xLogger.Vars(one, two), guid);
         }
 
         /// <summary>
@@ -1066,16 +1188,6 @@ namespace NLog.xLogger.Tests
         }
 
         /// <summary>
-        ///     Tests <see cref="xLogger.Checkpoint(string, Guid, string, string, int)"/>.
-        /// </summary>
-        [Fact]
-        public void CheckpointNamedPersistent()
-        {
-            Guid guid = logger.EnterMethod(true);
-            logger.Checkpoint("test", guid);
-        }
-
-        /// <summary>
         ///     Tests <see cref="xLogger.Checkpoint(object[], string, string, int)"/>.
         /// </summary>
         [Fact]
@@ -1087,41 +1199,6 @@ namespace NLog.xLogger.Tests
         }
 
         /// <summary>
-        ///     Tests <see cref="xLogger.Checkpoint(string, object[], string, string, int)"/>.
-        /// </summary>
-        [Fact]
-        public void CheckpointNamedVariables()
-        {
-            int one = 1;
-            int two = 2;
-            logger.Checkpoint("test", xLogger.Vars(one, two));
-        }
-
-        /// <summary>
-        ///     Tests <see cref="xLogger.Checkpoint(object[], Guid, string, string, int)"/>.
-        /// </summary>
-        [Fact]
-        public void CheckpointVariablesPersistent()
-        {
-            Guid guid = logger.EnterMethod(true);
-            int one = 1;
-            int two = 2;
-            logger.Checkpoint(xLogger.Vars(one, two), guid);
-        }
-
-        /// <summary>
-        ///     Tests <see cref="xLogger.Checkpoint(string, object[], Guid, string, string, int)"/>.
-        /// </summary>
-        [Fact]
-        public void CheckpointNamedVariablesPersistent()
-        {
-            Guid guid = logger.EnterMethod(true);
-            int one = 1;
-            int two = 2;
-            logger.Checkpoint("test", xLogger.Vars(one, two), guid);
-        }
-
-        /// <summary>
         ///     Tests <see cref="xLogger.Checkpoint(object[], string[], string, string, int)"/>.
         /// </summary>
         [Fact]
@@ -1130,17 +1207,6 @@ namespace NLog.xLogger.Tests
             int one = 1;
             int two = 2;
             logger.Checkpoint(xLogger.Vars(one, two), xLogger.Names("one", "two"));
-        }
-
-        /// <summary>
-        ///     Tests <see cref="xLogger.Checkpoint(string, object[], string[], string, string, int)"/>.
-        /// </summary>
-        [Fact]
-        public void CheckpointNamedVariableNames()
-        {
-            int one = 1;
-            int two = 2;
-            logger.Checkpoint("test", xLogger.Vars(one, two), xLogger.Names("one", "two"));
         }
 
         /// <summary>
@@ -1156,26 +1222,15 @@ namespace NLog.xLogger.Tests
         }
 
         /// <summary>
-        ///     Tests <see cref="xLogger.Checkpoint(string, object[], string[], Guid, string, string, int)"/>
+        ///     Tests <see cref="xLogger.Checkpoint(object[], Guid, string, string, int)"/>.
         /// </summary>
         [Fact]
-        public void CheckpointNamedVariableNamesPersistent()
+        public void CheckpointVariablesPersistent()
         {
             Guid guid = logger.EnterMethod(true);
             int one = 1;
             int two = 2;
-            logger.Checkpoint("test", xLogger.Vars(one, two), xLogger.Names("one", "two"), guid);
-        }
-
-        /// <summary>
-        ///     Tests <see cref="xLogger.Checkpoint(string)"/> to ensure no exceptions are thrown with "dirty" input.
-        /// </summary>
-        [Fact]
-        public void CheckpointDirtyInput()
-        {
-            int one = 1;
-            int two = 2;
-            logger.Checkpoint("test", xLogger.Vars(one, two), xLogger.Names("one")); // tests name/var count mismatch
+            logger.Checkpoint(xLogger.Vars(one, two), guid);
         }
 
         #endregion Checkpoint
@@ -1205,17 +1260,6 @@ namespace NLog.xLogger.Tests
         }
 
         /// <summary>
-        ///     Tests <see cref="xLogger.Exception(System.Exception, Guid, string, string, int)"/>.
-        /// </summary>
-        [Fact]
-        public void ExceptionPersistent()
-        {
-            Guid guid = logger.EnterMethod(true);
-
-            logger.Exception(new Exception(), guid);
-        }
-
-        /// <summary>
         ///     Tests <see cref="xLogger.Exception(LogLevel, System.Exception, Guid, string, string, int)"/>.
         /// </summary>
         [Fact]
@@ -1224,17 +1268,6 @@ namespace NLog.xLogger.Tests
             Guid guid = logger.EnterMethod(true);
 
             logger.Exception(LogLevel.Debug, new Exception(), guid);
-        }
-
-        /// <summary>
-        ///     Tests <see cref="xLogger.Exception(System.Exception, object[], string, string, int)"/>.
-        /// </summary>
-        [Fact]
-        public void ExceptionVariables()
-        {
-            int one = 1;
-            int two = 2;
-            logger.Exception(new Exception(), xLogger.Vars(one, two));
         }
 
         /// <summary>
@@ -1249,15 +1282,26 @@ namespace NLog.xLogger.Tests
         }
 
         /// <summary>
-        ///     Tests <see cref="xLogger.Exception(System.Exception, object[], string, string, int)"/>.
+        ///     Tests <see cref="xLogger.Exception(LogLevel, System.Exception, object[], string[], string, string, int)"/>.
         /// </summary>
         [Fact]
-        public void ExceptionVariablesPersistent()
+        public void ExceptionLevelVariablesNames()
+        {
+            int one = 1;
+            int two = 2;
+            logger.Exception(LogLevel.Debug, new Exception(), xLogger.Vars(one, two), xLogger.Names("one", "two"));
+        }
+
+        /// <summary>
+        ///     Tests <see cref="xLogger.Exception(LogLevel, System.Exception, object[], string[], Guid, string, string, int)"/>.
+        /// </summary>
+        [Fact]
+        public void ExceptionLevelVariablesNamesPersistent()
         {
             Guid guid = logger.EnterMethod(true);
             int one = 1;
             int two = 2;
-            logger.Exception(new Exception(), xLogger.Vars(one, two), guid);
+            logger.Exception(LogLevel.Debug, new Exception(), xLogger.Vars(one, two), xLogger.Names("one", "two"), guid);
         }
 
         /// <summary>
@@ -1273,6 +1317,28 @@ namespace NLog.xLogger.Tests
         }
 
         /// <summary>
+        ///     Tests <see cref="xLogger.Exception(System.Exception, Guid, string, string, int)"/>.
+        /// </summary>
+        [Fact]
+        public void ExceptionPersistent()
+        {
+            Guid guid = logger.EnterMethod(true);
+
+            logger.Exception(new Exception(), guid);
+        }
+
+        /// <summary>
+        ///     Tests <see cref="xLogger.Exception(System.Exception, object[], string, string, int)"/>.
+        /// </summary>
+        [Fact]
+        public void ExceptionVariables()
+        {
+            int one = 1;
+            int two = 2;
+            logger.Exception(new Exception(), xLogger.Vars(one, two));
+        }
+
+        /// <summary>
         ///     Tests <see cref="xLogger.Exception(System.Exception, object[], string[], string, string, int)"/>.
         /// </summary>
         [Fact]
@@ -1281,17 +1347,6 @@ namespace NLog.xLogger.Tests
             int one = 1;
             int two = 2;
             logger.Exception(new Exception(), xLogger.Vars(one, two), xLogger.Names("one", "two"));
-        }
-
-        /// <summary>
-        ///     Tests <see cref="xLogger.Exception(LogLevel, System.Exception, object[], string[], string, string, int)"/>.
-        /// </summary>
-        [Fact]
-        public void ExceptionLevelVariablesNames()
-        {
-            int one = 1;
-            int two = 2;
-            logger.Exception(LogLevel.Debug, new Exception(), xLogger.Vars(one, two), xLogger.Names("one", "two"));
         }
 
         /// <summary>
@@ -1307,15 +1362,15 @@ namespace NLog.xLogger.Tests
         }
 
         /// <summary>
-        ///     Tests <see cref="xLogger.Exception(LogLevel, System.Exception, object[], string[], Guid, string, string, int)"/>.
+        ///     Tests <see cref="xLogger.Exception(System.Exception, object[], string, string, int)"/>.
         /// </summary>
         [Fact]
-        public void ExceptionLevelVariablesNamesPersistent()
+        public void ExceptionVariablesPersistent()
         {
             Guid guid = logger.EnterMethod(true);
             int one = 1;
             int two = 2;
-            logger.Exception(LogLevel.Debug, new Exception(), xLogger.Vars(one, two), xLogger.Names("one", "two"), guid);
+            logger.Exception(new Exception(), xLogger.Vars(one, two), guid);
         }
 
         #endregion Exception
